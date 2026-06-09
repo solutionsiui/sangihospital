@@ -82,36 +82,42 @@ export const ourJourney = {
       title: "Foundation Laid",
       description:
         "Sangi Hospital was established in Raya, Mathura with a vision to bring quality healthcare to the region.",
+      image: "/assets/images/about/journey/foundation.jpg",
     },
     {
       year: "2010",
       title: "Multi-Specialty Expansion",
       description:
         "Expanded to include departments like Cardiology, Neurology, Orthopedics, and Gynecology under one roof.",
+      image: "/assets/images/about/journey/expansion.jpg",
     },
     {
       year: "2016",
       title: "Modern Diagnostics Wing",
       description:
         "Launched advanced diagnostics including CT Scan, Digital X-Ray, Ultrasonography, and a fully equipped laboratory.",
+      image: "/assets/images/about/journey/diagnostics.jpg",
     },
     {
       year: "2020",
       title: "Lakshmi Nagar Branch",
       description:
         "Opened our second branch in Lakshmi Nagar, Mathura to serve a wider patient base.",
+      image: "/assets/images/about/journey/lakshmi-nagar.jpg",
     },
     {
       year: "2023",
       title: "Shikohabad & Beyond",
       description:
         "Extended services to Shikohabad, Firozabad and Hathras, strengthening our regional healthcare network.",
+      image: "/assets/images/about/journey/shikohabad.jpg",
     },
     {
       year: "2025",
       title: "Digital Transformation",
       description:
         "Launched digital health records, online appointments, and telemedicine services for patient convenience.",
+      image: "/assets/images/about/journey/digital.jpg",
     },
   ],
 };
