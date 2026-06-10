@@ -33,25 +33,22 @@ const services = [
 
 export default function Services() {
   return (
-    <section className="services-section py-5 py-lg-6">
-      <div className="container">
-        <div className="row g-4 g-xl-5 align-items-end">
-          <div className="col-lg-5">
-            <p className="services-intro font-body mb-4 mb-lg-5">
+    <section className="services-section">
+      <div className="services-section__inner">
+        <div className="services-section__grid">
+          <div className="services-section__cards-col">
+            <p className="services-intro">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
               tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
             </p>
 
-            <div className="d-flex flex-column gap-3 gap-lg-4">
+            <div className="services-section__list">
               {services.map((service) => {
                 const Icon = service.icon;
 
                 return (
-                  <article
-                    key={service.title}
-                    className="service-card d-flex align-items-start gap-3 gap-md-4"
-                  >
-                    <div className="service-card__icon flex-shrink-0">
+                  <article key={service.title} className="service-card">
+                    <div className="service-card__icon">
                       <Icon
                         className="service-card__icon-svg"
                         strokeWidth={1.5}
@@ -59,17 +56,10 @@ export default function Services() {
                       />
                     </div>
 
-                    <div className="flex-grow-1">
-                      <h3 className="service-card__title font-heading mb-2">
-                        {service.title}
-                      </h3>
-                      <p className="service-card__text font-body mb-3">
-                        {service.description}
-                      </p>
-                      <Link
-                        href={service.href}
-                        className="service-card__link font-body d-inline-flex align-items-center gap-2"
-                      >
+                    <div className="service-card__body">
+                      <h3 className="service-card__title">{service.title}</h3>
+                      <p className="service-card__text">{service.description}</p>
+                      <Link href={service.href} className="service-card__link">
                         Learn More
                         <ArrowRight size={16} aria-hidden="true" />
                       </Link>
@@ -80,23 +70,21 @@ export default function Services() {
             </div>
           </div>
 
-          <div className="col-lg-7">
-            <div className="services-content ps-lg-4 ps-xl-5">
-              <p className="services-eyebrow font-body text-uppercase mb-3">
-                Expertise
-              </p>
+          <div className="services-section__visual-col">
+            <div className="services-content">
+              <p className="services-eyebrow">Expertise</p>
 
-              <h2 className="services-heading font-heading mb-4 mb-lg-5">
+              <h2 className="services-heading">
                 We Offer More Than Services &amp; All Solutions Medical.
               </h2>
 
-              <div className="services-image-wrap mx-auto ms-lg-auto me-lg-0">
+              <div className="services-image-wrap">
                 <Image
                   src="/assets/images/home/servicehome.png"
                   alt="Medical professionals at Sangi Hospital"
                   width={620}
                   height={760}
-                  className="services-image img-fluid"
+                  className="services-image"
                   priority={false}
                 />
               </div>

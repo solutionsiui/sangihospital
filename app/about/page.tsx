@@ -19,6 +19,7 @@ export default function AboutPage() {
     <main>
       {/* 1. Inner Hero — gradient overlay banner */}
       <InnerHero
+        eyebrow="Who We Are"
         title="About Us"
         subtitle="Compassionate care, modern medicine, and a commitment to your well-being."
         backgroundImage="/assets/images/about/about-banner.jpg"

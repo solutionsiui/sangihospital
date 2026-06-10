@@ -1,0 +1,309 @@
+/* ─── Inner Hero (inner pages) ──────────────────────────── */
+.inner-hero {
+  --inner-hero-min-h: clamp(22rem, 52vh, 30rem);
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: var(--inner-hero-min-h);
+  overflow: hidden;
+  color: #ffffff;
+  background: var(--gradient-primary);
+}
+
+.inner-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.inner-hero__image {
+  object-fit: cover;
+  object-position: center 30%;
+  transform: scale(1.06);
+  animation: inner-hero-zoom 18s ease-in-out infinite alternate;
+}
+
+@keyframes inner-hero-zoom {
+  from {
+    transform: scale(1.04);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+.inner-hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      115deg,
+      color-mix(in srgb, var(--foreground-deeper) 92%, transparent) 0%,
+      color-mix(in srgb, var(--foreground) 72%, transparent) 38%,
+      color-mix(in srgb, var(--foreground-light) 48%, transparent) 68%,
+      color-mix(in srgb, var(--foreground-accent) 22%, transparent) 100%
+    ),
+    linear-gradient(
+      to top,
+      color-mix(in srgb, var(--foreground-deeper) 88%, transparent) 0%,
+      transparent 55%
+    );
+}
+
+.inner-hero__pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 3rem 3rem;
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.55) 0%,
+    transparent 85%
+  );
+}
+
+.inner-hero__glow {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.45;
+}
+
+.inner-hero__glow--left {
+  top: -4rem;
+  left: -6rem;
+  width: 18rem;
+  height: 18rem;
+  background: rgba(74, 111, 212, 0.55);
+}
+
+.inner-hero__glow--right {
+  right: -4rem;
+  bottom: 2rem;
+  width: 14rem;
+  height: 14rem;
+  background: rgba(0, 69, 142, 0.45);
+}
+
+.inner-hero__inner {
+  position: relative;
+  z-index: 3;
+  width: min(100% - 2rem, 87.5rem);
+  margin-inline: auto;
+  padding: 7.5rem 0 4.5rem;
+}
+
+@media (min-width: 640px) {
+  .inner-hero__inner {
+    width: min(100% - 3rem, 87.5rem);
+    padding: 8.5rem 0 5.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .inner-hero__inner {
+    width: min(100% - 4rem, 87.5rem);
+    padding: 9rem 0 6rem;
+  }
+}
+
+.inner-hero__breadcrumb {
+  margin-bottom: 1.75rem;
+}
+
+.inner-hero__breadcrumb-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0.45rem 0.85rem;
+  list-style: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.inner-hero__breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.inner-hero__breadcrumb-sep {
+  width: 0.85rem;
+  height: 0.85rem;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.inner-hero__breadcrumb-link {
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.inner-hero__breadcrumb-link:hover {
+  color: #ffffff;
+}
+
+.inner-hero__breadcrumb-current {
+  color: #ffffff;
+}
+
+.inner-hero__body {
+  max-width: 44rem;
+}
+
+.inner-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+@media (min-width: 640px) {
+  .inner-hero__eyebrow {
+    font-size: 0.8rem;
+  }
+}
+
+.inner-hero__eyebrow::before {
+  content: "";
+  width: 2rem;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(74, 111, 212, 0.85) 100%
+  );
+}
+
+.inner-hero__title {
+  margin: 1rem 0 0;
+  font-family: var(--font-heading);
+  font-size: clamp(2.15rem, 5.5vw, 3.75rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-wrap: balance;
+}
+
+.inner-hero__accent {
+  width: 4.5rem;
+  height: 4px;
+  margin-top: 1.25rem;
+  border-radius: 9999px;
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    rgba(74, 111, 212, 0.9) 55%,
+    transparent 100%
+  );
+}
+
+.inner-hero__subtitle {
+  margin: 1.35rem 0 0;
+  max-width: 36rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.98rem, 2vw, 1.125rem);
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.inner-hero__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem 1.25rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.inner-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.inner-hero__badge-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.inner-hero__badge-icon svg {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.inner-hero__footer-divider {
+  width: 1px;
+  height: 1.25rem;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.inner-hero__footer-text {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.68);
+  letter-spacing: 0.04em;
+}
+
+.inner-hero__curve {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  z-index: 4;
+  line-height: 0;
+  pointer-events: none;
+  color: var(--background);
+}
+
+.inner-hero__curve svg {
+  display: block;
+  width: 100%;
+  height: clamp(2.5rem, 5vw, 4rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inner-hero__image {
+    animation: none;
+    transform: scale(1.04);
+  }
+}

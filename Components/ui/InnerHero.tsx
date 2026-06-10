@@ -1,5 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
+import { ChevronRight, ShieldCheck } from "lucide-react";
+import { siteConfig } from "@/lib/site";
+import "./innerhero.css";
 
 type Breadcrumb = {
   label: string;
@@ -9,54 +12,64 @@ type Breadcrumb = {
 type InnerHeroProps = {
   title: string;
   subtitle?: string;
+  eyebrow?: string;
   breadcrumbs: Breadcrumb[];
   backgroundImage?: string;
+  showTrustBar?: boolean;
 };
 
 export default function InnerHero({
   title,
   subtitle,
+  eyebrow,
   breadcrumbs,
   backgroundImage,
+  showTrustBar = true,
 }: InnerHeroProps) {
   return (
-    <section className="inner-hero relative flex min-h-[340px] items-end overflow-hidden sm:min-h-[400px] lg:min-h-[440px]">
+    <section className="inner-hero" aria-labelledby="inner-hero-title">
       {backgroundImage && (
-        <Image
-          src={backgroundImage}
-          alt=""
-          fill
-          priority
-          className="object-cover object-center"
-          aria-hidden="true"
-        />
+        <div className="inner-hero__media">
+          <Image
+            src={backgroundImage}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="inner-hero__image"
+            aria-hidden="true"
+          />
+        </div>
       )}
 
-      <div
-        className="inner-hero__overlay pointer-events-none absolute inset-0 z-[1]"
-        aria-hidden="true"
-      />
+      <div className="inner-hero__overlay" aria-hidden="true" />
+      <div className="inner-hero__pattern" aria-hidden="true" />
+      <div className="inner-hero__glow inner-hero__glow--left" aria-hidden="true" />
+      <div className="inner-hero__glow inner-hero__glow--right" aria-hidden="true" />
 
-      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 pb-12 pt-32 sm:px-8 lg:px-10 lg:pb-16">
-        <nav aria-label="Breadcrumb" className="mb-4">
-          <ol className="flex flex-wrap items-center gap-1.5 font-body text-sm text-white/70">
+      <div className="inner-hero__inner">
+        <nav aria-label="Breadcrumb" className="inner-hero__breadcrumb">
+          <ol className="inner-hero__breadcrumb-list">
             {breadcrumbs.map((crumb, index) => {
               const isLast = index === breadcrumbs.length - 1;
 
               return (
-                <li key={crumb.label} className="flex items-center gap-1.5">
+                <li key={crumb.label} className="inner-hero__breadcrumb-item">
                   {index > 0 && (
-                    <span className="text-white/40" aria-hidden="true">
-                      /
-                    </span>
+                    <ChevronRight
+                      className="inner-hero__breadcrumb-sep"
+                      aria-hidden="true"
+                    />
                   )}
                   {isLast || !crumb.href ? (
-                    <span className="text-white">{crumb.label}</span>
-                  ) : (
-                    <Link
-                      href={crumb.href}
-                      className="transition-colors hover:text-white"
+                    <span
+                      className="inner-hero__breadcrumb-current"
+                      aria-current={isLast ? "page" : undefined}
                     >
+                      {crumb.label}
+                    </span>
+                  ) : (
+                    <Link href={crumb.href} className="inner-hero__breadcrumb-link">
                       {crumb.label}
                     </Link>
                   )}
@@ -66,15 +79,38 @@ export default function InnerHero({
           </ol>
         </nav>
 
-        <h1 className="font-heading text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
-          {title}
-        </h1>
+        <div className="inner-hero__body">
+          {eyebrow && <p className="inner-hero__eyebrow">{eyebrow}</p>}
 
-        {subtitle && (
-          <p className="mt-3 max-w-2xl font-body text-base text-white/80 sm:text-lg">
-            {subtitle}
-          </p>
+          <h1 id="inner-hero-title" className="inner-hero__title">
+            {title}
+          </h1>
+
+          <div className="inner-hero__accent" aria-hidden="true" />
+
+          {subtitle && <p className="inner-hero__subtitle">{subtitle}</p>}
+        </div>
+
+        {showTrustBar && (
+          <div className="inner-hero__footer">
+            <span className="inner-hero__badge">
+              <span className="inner-hero__badge-icon" aria-hidden="true">
+                <ShieldCheck />
+              </span>
+              {siteConfig.tagline}
+            </span>
+            <span className="inner-hero__footer-divider" aria-hidden="true" />
+            <span className="inner-hero__footer-text">
+              {siteConfig.region}
+            </span>
+          </div>
         )}
+      </div>
+
+      <div className="inner-hero__curve" aria-hidden="true">
+        <svg viewBox="0 0 1440 64" preserveAspectRatio="none" fill="currentColor">
+          <path d="M0,32 C360,80 720,0 1080,32 C1260,48 1380,56 1440,64 L1440,64 L0,64 Z" />
+        </svg>
       </div>
     </section>
   );

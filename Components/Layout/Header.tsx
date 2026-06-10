@@ -1,57 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-
-type NavItem = {
-  label: string;
-  href: string;
-  children?: { label: string; href: string }[];
-};
-
-const navItems: NavItem[] = [
-  {
-    label: "Home",
-    href: "/",
-    children: [
-      { label: "Home 1", href: "/" },
-      { label: "Home 2", href: "/home-2" },
-    ],
-  },
-  {
-    label: "Doctors",
-    href: "/doctors",
-    children: [
-      { label: "All Doctors", href: "/doctors" },
-      { label: "Doctor Details", href: "/doctors/details" },
-    ],
-  },
-  { label: "About Us", href: "/about" },
-  {
-    label: "Pages",
-    href: "#",
-    children: [
-      { label: "Services", href: "/services" },
-      { label: "Departments", href: "/departments" },
-      { label: "FAQ", href: "/faq" },
-    ],
-  },
-  {
-    label: "Shop",
-    href: "/shop",
-    children: [
-      { label: "Products", href: "/shop" },
-      { label: "Cart", href: "/shop/cart" },
-    ],
-  },
-  {
-    label: "Blog",
-    href: "/blog",
-    children: [
-      { label: "Blog Grid", href: "/blog" },
-      { label: "Blog Details", href: "/blog/details" },
-    ],
-  },
-  { label: "Contact", href: "/contact" },
-];
+import ServicesMegaMenu from "@/Components/Layout/ServicesMegaMenu";
+import SpecialitiesMegaMenu from "@/Components/Layout/SpecialitiesMegaMenu";
+import HospitalsMegaMenu from "@/Components/Layout/HospitalsMegaMenu";
+import PatientCornerMegaMenu from "@/Components/Layout/PatientCornerMegaMenu";
+import MobileMenu from "@/Components/Layout/MobileMenu";
+import ClientOnly from "@/Components/ui/ClientOnly";
+import { mainNavItems } from "@/lib/navigation";
 
 function ChevronDownIcon() {
   return (
@@ -91,10 +46,49 @@ function SearchIcon() {
   );
 }
 
+function MobileMenuFallback() {
+  return (
+    <div className="mobile-menu">
+      <button
+        type="button"
+        className="mobile-menu__toggle"
+        aria-label="Open menu"
+        aria-expanded={false}
+      >
+        <svg
+          className="mobile-menu__toggle-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M4 7H20"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+          <path
+            d="M4 12H20"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+          <path
+            d="M4 17H14"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+        </svg>
+      </button>
+    </div>
+  );
+}
+
 export default function Header() {
   return (
-    <header className="absolute inset-x-0 top-0 z-50 bg-transparent">
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-8 px-6 py-5 lg:px-10">
+    <header className="site-header absolute inset-x-0 top-0 z-50 bg-transparent">
+      <div className="site-header__inner mx-auto flex max-w-[1400px] items-center justify-between gap-8 px-6 py-5 lg:px-10">
         <Link
           href="/"
           className="flex shrink-0 items-center transition-opacity hover:opacity-90"
@@ -110,8 +104,33 @@ export default function Header() {
         </Link>
 
         <nav className="hidden flex-1 items-center justify-center gap-8 xl:flex">
-          {navItems.map((item) =>
-            item.children ? (
+          {mainNavItems.map((item) =>
+            item.megaMenu ? (
+              <div
+                key={item.label}
+                className="header-nav-item header-nav-item--mega"
+              >
+                <Link
+                  href={item.href}
+                  className="header-nav-link font-body flex items-center gap-1.5"
+                >
+                  {item.label}
+                  <ChevronDownIcon />
+                </Link>
+
+                <ClientOnly>
+                  {item.megaMenu === "services" ? (
+                    <ServicesMegaMenu />
+                  ) : item.megaMenu === "hospitals" ? (
+                    <HospitalsMegaMenu />
+                  ) : item.megaMenu === "specialities" ? (
+                    <SpecialitiesMegaMenu />
+                  ) : (
+                    <PatientCornerMegaMenu />
+                  )}
+                </ClientOnly>
+              </div>
+            ) : item.children ? (
               <div key={item.label} className="header-nav-item">
                 <Link
                   href={item.href}
@@ -147,7 +166,7 @@ export default function Header() {
           )}
         </nav>
 
-        <div className="flex shrink-0 items-center gap-5">
+        <div className="flex shrink-0 items-center gap-3 sm:gap-5">
           <button
             type="button"
             aria-label="Search"
@@ -162,6 +181,10 @@ export default function Header() {
           >
             Make An Appointment
           </Link>
+
+          <ClientOnly fallback={<MobileMenuFallback />}>
+            <MobileMenu />
+          </ClientOnly>
         </div>
       </div>
     </header>

@@ -1,8 +1,5 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUp } from "lucide-react";
 
 function FacebookIcon() {
   return (
@@ -60,24 +57,11 @@ const socialLinks = [
   { label: "Pinterest", href: "#", icon: PinterestIcon },
 ];
 
-function ScrollToTopButton() {
-  return (
-    <button
-      type="button"
-      aria-label="Scroll to top"
-      className="site-footer__scroll-top"
-      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-    >
-      <ArrowUp size={18} aria-hidden="true" />
-    </button>
-  );
-}
 
 export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="container position-relative">
-        <ScrollToTopButton />
 
         <div className="row g-4 g-lg-5 py-5 py-lg-6">
           <div className="col-lg-4 col-md-6">
@@ -104,7 +88,7 @@ export default function Footer() {
                   aria-label={label}
                   className="site-footer__social"
                 >
-                  <Icon aria-hidden="true" />
+                  <Icon />
                 </Link>
               ))}
             </div>
@@ -151,7 +135,7 @@ export default function Footer() {
 
         <div className="site-footer__bottom row align-items-center py-4">
           <div className="col-md-6">
-            <p className="site-footer__copyright font-body mb-0">
+            <p className="site-footer__copyright font-body mb-0" suppressHydrationWarning>
               Sangi Hospital © {new Date().getFullYear()}. All Rights Reserved.
             </p>
           </div>
