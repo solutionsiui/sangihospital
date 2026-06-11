@@ -7,6 +7,7 @@ import { FaStar } from "react-icons/fa6";
 import type { Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ClientOnly from "@/Components/ui/ClientOnly";
+import TPATicker from "@/Components/Home/TPATicker";
 import "swiper/css";
 
 type Hospital = {
@@ -165,7 +166,7 @@ export default function AllHospitals() {
   }, [activeLocation]);
 
   return (
-    <section className="all-hospitals">
+    <section className="all-hospitals" id="our-hospitals">
       <div className="all-hospitals__inner">
         <div className="all-hospitals__stage">
           <aside className="all-hospitals__blue">
@@ -289,6 +290,8 @@ export default function AllHospitals() {
             </div>
           </div>
         </div>
+
+        <TPATicker />
       </div>
     </section>
   );

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 import InnerHero from "@/Components/ui/InnerHero";
 import ServiceDetailIntro from "@/Components/Services/ServiceDetailIntro";
 import ServiceDetailOfferings from "@/Components/Services/ServiceDetailOfferings";
@@ -43,7 +43,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
   const service = getServiceBySlug(slug);
 
   if (!service) {
-    notFound();
+    redirect("/services");
   }
 
   return (

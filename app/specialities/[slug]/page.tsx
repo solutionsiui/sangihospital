@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 import InnerHero from "@/Components/ui/InnerHero";
 import SpecialityDetailIntro from "@/Components/Specialities/SpecialityDetailIntro";
 import SpecialityDetailServices from "@/Components/Specialities/SpecialityDetailServices";
@@ -43,7 +43,7 @@ export default async function SpecialityDetailPage({ params }: SpecialityDetailP
   const speciality = getSpecialityBySlug(slug);
 
   if (!speciality) {
-    notFound();
+    redirect("/specialities");
   }
 
   return (

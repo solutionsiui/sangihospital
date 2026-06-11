@@ -4,6 +4,7 @@ import ServicesMegaMenu from "@/Components/Layout/ServicesMegaMenu";
 import SpecialitiesMegaMenu from "@/Components/Layout/SpecialitiesMegaMenu";
 import HospitalsMegaMenu from "@/Components/Layout/HospitalsMegaMenu";
 import PatientCornerMegaMenu from "@/Components/Layout/PatientCornerMegaMenu";
+import HeaderMegaNavItem from "@/Components/Layout/HeaderMegaNavItem";
 import MobileMenu from "@/Components/Layout/MobileMenu";
 import ClientOnly from "@/Components/ui/ClientOnly";
 import { mainNavItems } from "@/lib/navigation";
@@ -87,7 +88,7 @@ function MobileMenuFallback() {
 
 export default function Header() {
   return (
-    <header className="site-header absolute inset-x-0 top-0 z-50 bg-transparent">
+    <header className="site-header absolute inset-x-0 top-0 z-[100] bg-transparent">
       <div className="site-header__inner mx-auto flex max-w-[1400px] items-center justify-between gap-8 px-6 py-5 lg:px-10">
         <Link
           href="/"
@@ -103,33 +104,24 @@ export default function Header() {
           />
         </Link>
 
-        <nav className="hidden flex-1 items-center justify-center gap-8 xl:flex">
+        <nav className="header-nav hidden xl:flex flex-1 items-center justify-center gap-3 xl:gap-4 2xl:gap-8">
           {mainNavItems.map((item) =>
             item.megaMenu ? (
-              <div
+              <HeaderMegaNavItem
                 key={item.label}
-                className="header-nav-item header-nav-item--mega"
+                label={item.label}
+                href={item.href}
               >
-                <Link
-                  href={item.href}
-                  className="header-nav-link font-body flex items-center gap-1.5"
-                >
-                  {item.label}
-                  <ChevronDownIcon />
-                </Link>
-
-                <ClientOnly>
-                  {item.megaMenu === "services" ? (
-                    <ServicesMegaMenu />
-                  ) : item.megaMenu === "hospitals" ? (
-                    <HospitalsMegaMenu />
-                  ) : item.megaMenu === "specialities" ? (
-                    <SpecialitiesMegaMenu />
-                  ) : (
-                    <PatientCornerMegaMenu />
-                  )}
-                </ClientOnly>
-              </div>
+                {item.megaMenu === "services" ? (
+                  <ServicesMegaMenu />
+                ) : item.megaMenu === "hospitals" ? (
+                  <HospitalsMegaMenu />
+                ) : item.megaMenu === "specialities" ? (
+                  <SpecialitiesMegaMenu />
+                ) : (
+                  <PatientCornerMegaMenu />
+                )}
+              </HeaderMegaNavItem>
             ) : item.children ? (
               <div key={item.label} className="header-nav-item">
                 <Link

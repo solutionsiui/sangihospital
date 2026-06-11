@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 import "@/Components/Layout/layout.css";
 import Header from "@/Components/Layout/Header";
-import Footer from "@/Components/Layout/Footer";
+import Megafooter from "@/Components/Layout/Megafooter";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -75,7 +75,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <Header />
         {children}
-        <Footer />
+        <Megafooter />
       </body>
     </html>
   );
