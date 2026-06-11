@@ -57,6 +57,7 @@ export default function MobileMenu() {
   const isActiveRoute = (href: string) => mounted && pathname === href;
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -100,6 +101,7 @@ export default function MobileMenu() {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     closeMenu();
   }, [pathname, closeMenu]);
 

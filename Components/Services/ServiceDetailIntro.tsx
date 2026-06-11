@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 import { Check } from "lucide-react";
 import { getServiceIcon } from "./serviceIcons";
@@ -7,9 +8,11 @@ type ServiceDetailIntroProps = {
   service: Service;
 };
 
-export default function ServiceDetailIntro({ service }: ServiceDetailIntroProps) {
-  const Icon = getServiceIcon(service.id);
+function ServiceIcon({ id, size, strokeWidth }: { id: string; size?: number; strokeWidth?: number }) {
+  return React.createElement(getServiceIcon(id), { size, strokeWidth });
+}
 
+export default function ServiceDetailIntro({ service }: ServiceDetailIntroProps) {
   return (
     <section className="service-detail-intro" aria-labelledby="service-detail-intro-title">
       <div className="service-detail-intro__inner">
@@ -38,7 +41,7 @@ export default function ServiceDetailIntro({ service }: ServiceDetailIntroProps)
 
         <div className="service-detail-intro__visual">
           <div className="service-detail-intro__badge" aria-hidden="true">
-            <Icon size={18} strokeWidth={1.6} />
+            <ServiceIcon id={service.id} size={18} strokeWidth={1.6} />
           </div>
           <div className="service-detail-intro__image-wrap">
             <Image

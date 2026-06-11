@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 import { Check } from "lucide-react";
 import { getSpecialityIcon } from "./specialityIcons";
@@ -7,11 +8,13 @@ type SpecialityDetailIntroProps = {
   speciality: SpecialityDetail;
 };
 
+function SpecialityIcon({ id, size, strokeWidth }: { id: string; size?: number; strokeWidth?: number }) {
+  return React.createElement(getSpecialityIcon(id), { size, strokeWidth });
+}
+
 export default function SpecialityDetailIntro({
   speciality,
 }: SpecialityDetailIntroProps) {
-  const Icon = getSpecialityIcon(speciality.id);
-
   return (
     <section
       className="speciality-detail-intro"
@@ -43,7 +46,7 @@ export default function SpecialityDetailIntro({
 
         <div className="speciality-detail-intro__visual">
           <div className="speciality-detail-intro__badge" aria-hidden="true">
-            <Icon size={18} strokeWidth={1.6} />
+            <SpecialityIcon id={speciality.id} size={18} strokeWidth={1.6} />
           </div>
           <div className="speciality-detail-intro__image-wrap">
             <Image

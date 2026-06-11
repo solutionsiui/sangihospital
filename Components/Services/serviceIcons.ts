@@ -4,7 +4,6 @@ import {
   BedDouble,
   Building2,
   Droplets,
-  FlaskConical,
   HeartPulse,
   Microscope,
   Pill,

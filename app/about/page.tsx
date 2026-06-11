@@ -5,7 +5,6 @@ import MissionVision from "@/Components/About/MissionVision";
 import CoreValues from "@/Components/About/CoreValues";
 import OurJourney from "@/Components/About/OurJourney";
 import ChairpersonMessage from "@/Components/About/ChairpersonMessage";
-import WhyChooseUs from "@/Components/About/WhyChooseUs";
 import "@/Components/About/about.css";
 
 export const metadata = {
