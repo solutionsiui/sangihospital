@@ -82,8 +82,8 @@ export default function Services() {
                 <Image
                   src="/assets/images/home/servicehome.png"
                   alt="Medical professionals at Sangi Hospital"
-                  width={620}
-                  height={760}
+                  fill
+                  sizes="(max-width: 992px) 90vw, 34rem"
                   className="services-image"
                   priority={false}
                 />

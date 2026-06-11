@@ -104,7 +104,7 @@ export default function Header() {
           />
         </Link>
 
-        <nav className="header-nav hidden xl:flex flex-1 items-center justify-center gap-3 xl:gap-4 2xl:gap-8">
+        <nav className="header-nav" aria-label="Main navigation">
           {mainNavItems.map((item) =>
             item.megaMenu ? (
               <HeaderMegaNavItem
@@ -126,7 +126,7 @@ export default function Header() {
               <div key={item.label} className="header-nav-item">
                 <Link
                   href={item.href}
-                  className="header-nav-link font-body flex items-center gap-1.5"
+                  className="header-nav-link font-body"
                 >
                   {item.label}
                   <ChevronDownIcon />
@@ -147,13 +147,11 @@ export default function Header() {
                 </div>
               </div>
             ) : (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="header-nav-link font-body"
-              >
-                {item.label}
-              </Link>
+              <div key={item.label} className="header-nav-item">
+                <Link href={item.href} className="header-nav-link font-body">
+                  {item.label}
+                </Link>
+              </div>
             ),
           )}
         </nav>

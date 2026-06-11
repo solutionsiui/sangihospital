@@ -119,7 +119,7 @@ export default function HeaderMegaNavItem({
     >
       <Link
         href={href}
-        className="header-nav-link font-body flex items-center gap-1.5"
+        className="header-nav-link font-body"
         aria-expanded={isOpen}
         aria-haspopup="true"
         onClick={handleTriggerClick}
