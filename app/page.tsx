@@ -15,6 +15,7 @@ import "@/Components/Home/home.css";
 import Sangidef from "@/Components/ui/Sangidef";
 import Testimonials from "@/Components/ui/Testimonials";
 import Casestories from "@/Components/ui/Casestories";
+import NabhCerti from "@/Components/ui/NabhCerti";
 
 export const metadata: Metadata = {
   title: `${siteConfig.legalName} | ${siteConfig.tagline} in Uttar Pradesh`,
@@ -73,6 +74,7 @@ export default function Home() {
         <AllHospitals />
         <Sangidef />
         <Testimonials />
+        <NabhCerti />
       </main>
     </>
   );

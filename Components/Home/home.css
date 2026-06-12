@@ -1391,6 +1391,40 @@
   box-shadow: 0 12px 32px rgba(10, 31, 68, 0.14);
 }
 
+.hospital-card--upcoming {
+  cursor: default;
+}
+
+.hospital-card--upcoming:hover {
+  transform: none;
+  box-shadow: 0 4px 18px rgba(10, 31, 68, 0.08);
+}
+
+.hospital-card__badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 1;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.94);
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--foreground-accent);
+  box-shadow: 0 8px 20px rgba(0, 3, 40, 0.12);
+}
+
+.hospital-card__upcoming {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(26, 43, 74, 0.68);
+}
+
 .hospital-card__image-wrap {
   position: relative;
   aspect-ratio: 3 / 2;

@@ -5,149 +5,56 @@ import Link from "next/link";
 import { ArrowRight, MapPin } from "lucide-react";
 import { useMemo, useState } from "react";
 import {
-  getDefaultStateForRegion,
+  getAllHospitals,
   hospitalsMegaMenu,
+  isHospitalUpcoming,
   type HospitalLocation,
-  type HospitalRegion,
-  type HospitalState,
 } from "@/lib/hospitals";
 
 export default function HospitalsMegaMenu() {
-  const { regions, viewAllHref } = hospitalsMegaMenu;
-  const [activeRegionId, setActiveRegionId] = useState(regions[0].id);
-  const [activeStateId, setActiveStateId] = useState(
-    getDefaultStateForRegion(regions[0]).id,
-  );
+  const { viewAllHref } = hospitalsMegaMenu;
+  const hospitals = getAllHospitals();
   const [hoveredHospitalId, setHoveredHospitalId] = useState<string>(
-    getDefaultStateForRegion(regions[0]).hospitals[0]?.id ?? "",
-  );
-
-  const activeRegion = useMemo(
-    () => regions.find((region) => region.id === activeRegionId) ?? regions[0],
-    [activeRegionId, regions],
-  );
-
-  const activeState = useMemo(
-    () =>
-      activeRegion.states.find((state) => state.id === activeStateId) ??
-      getDefaultStateForRegion(activeRegion),
-    [activeRegion, activeStateId],
+    hospitals[0]?.id ?? "",
   );
 
   const previewHospital = useMemo(() => {
     return (
-      activeState.hospitals.find(
-        (hospital) => hospital.id === hoveredHospitalId,
-      ) ??
-      activeState.hospitals[0] ??
+      hospitals.find((hospital) => hospital.id === hoveredHospitalId) ??
+      hospitals[0] ??
       null
     );
-  }, [activeState.hospitals, hoveredHospitalId]);
-
-  const handleRegionChange = (region: HospitalRegion) => {
-    const nextState = getDefaultStateForRegion(region);
-    setActiveRegionId(region.id);
-    setActiveStateId(nextState.id);
-    setHoveredHospitalId(nextState.hospitals[0]?.id ?? "");
-  };
-
-  const handleStateChange = (state: HospitalState) => {
-    setActiveStateId(state.id);
-    setHoveredHospitalId(state.hospitals[0]?.id ?? "");
-  };
-
-  const handleHospitalHover = (hospitalId: string) => {
-    setHoveredHospitalId(hospitalId);
-  };
+  }, [hospitals, hoveredHospitalId]);
 
   return (
     <div className="header-mega header-mega--hospitals">
       <div className="header-hospitals-mega__panel">
-        <div className="header-hospitals-mega__tabs" role="tablist" aria-label="Regions">
-          {regions.map((region) => (
-            <button
-              key={region.id}
-              type="button"
-              role="tab"
-              aria-selected={activeRegionId === region.id}
-              className={`header-hospitals-mega__tab${
-                activeRegionId === region.id ? " is-active" : ""
-              }`}
-              onMouseEnter={() => handleRegionChange(region)}
-              onFocus={() => handleRegionChange(region)}
-            >
-              {region.label}
-            </button>
-          ))}
-        </div>
-
-        <div className="header-hospitals-mega__body">
-          <aside className="header-hospitals-mega__sidebar">
-            {activeRegion.states.map((state) => (
-              <button
-                key={state.id}
-                type="button"
-                className={`header-hospitals-mega__state${
-                  activeStateId === state.id ? " is-active" : ""
-                }`}
-                onMouseEnter={() => handleStateChange(state)}
-                onFocus={() => handleStateChange(state)}
-              >
-                {state.label}
-              </button>
-            ))}
-          </aside>
-
+        <div className="header-hospitals-mega__body header-hospitals-mega__body--simple">
           <div className="header-hospitals-mega__content">
-            {activeState.hospitals.length > 0 ? (
-              <>
-                <ul
-                  className="header-hospitals-mega__list"
-                  onMouseLeave={() =>
-                    setHoveredHospitalId(activeState.hospitals[0]?.id ?? "")
-                  }
+            <ul
+              className="header-hospitals-mega__list"
+              onMouseLeave={() => setHoveredHospitalId(hospitals[0]?.id ?? "")}
+            >
+              {hospitals.map((hospital) => (
+                <li
+                  key={hospital.id}
+                  onMouseEnter={() => setHoveredHospitalId(hospital.id)}
+                  onFocus={() => setHoveredHospitalId(hospital.id)}
                 >
-                  {activeState.hospitals.map((hospital) => (
-                    <li
-                      key={hospital.id}
-                      onMouseEnter={() => handleHospitalHover(hospital.id)}
-                      onFocus={() => handleHospitalHover(hospital.id)}
-                    >
-                      <Link
-                        href={hospital.href}
-                        className={`header-hospitals-mega__link${
-                          previewHospital?.id === hospital.id ? " is-hovered" : ""
-                        }`}
-                        tabIndex={0}
-                      >
-                        {hospital.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="header-hospitals-mega__preview">
-                  <HospitalPreview
-                    hospitals={activeState.hospitals}
-                    activeHospitalId={previewHospital?.id ?? ""}
+                  <HospitalListItem
+                    hospital={hospital}
+                    isHovered={previewHospital?.id === hospital.id}
                   />
-                </div>
-              </>
-            ) : (
-              <div className="header-hospitals-mega__empty">
-                <p className="header-hospitals-mega__empty-title">
-                  Expanding Our Network
-                </p>
-                <p className="header-hospitals-mega__empty-text">
-                  Sangi Hospital is growing across India. New locations in{" "}
-                  {activeState.label} will be announced soon.
-                </p>
-                <Link href={viewAllHref} className="header-hospitals-mega__cta">
-                  View Current Locations
-                  <ArrowRight size={16} aria-hidden="true" />
-                </Link>
-              </div>
-            )}
+                </li>
+              ))}
+            </ul>
+
+            <div className="header-hospitals-mega__preview">
+              <HospitalPreview
+                hospitals={hospitals}
+                activeHospitalId={previewHospital?.id ?? ""}
+              />
+            </div>
           </div>
         </div>
 
@@ -159,6 +66,34 @@ export default function HospitalsMegaMenu() {
         </div>
       </div>
     </div>
+  );
+}
+
+function HospitalListItem({
+  hospital,
+  isHovered,
+}: {
+  hospital: HospitalLocation;
+  isHovered: boolean;
+}) {
+  const upcoming = isHospitalUpcoming(hospital);
+  const className = `header-hospitals-mega__link${
+    isHovered ? " is-hovered" : ""
+  }${upcoming ? " is-upcoming" : ""}`;
+
+  if (upcoming) {
+    return (
+      <span className={className} tabIndex={0}>
+        <span className="header-hospitals-mega__link-label">{hospital.name}</span>
+        <span className="header-hospitals-mega__badge">Upcoming Project</span>
+      </span>
+    );
+  }
+
+  return (
+    <Link href={hospital.href} className={className} tabIndex={0}>
+      {hospital.name}
+    </Link>
   );
 }
 
@@ -189,29 +124,44 @@ function HospitalPreview({
               sizes="320px"
               className="header-hospitals-mega__preview-image"
             />
+            {isHospitalUpcoming(hospital) ? (
+              <span className="header-hospitals-mega__preview-badge">
+                Upcoming Project
+              </span>
+            ) : null}
           </div>
         ))}
       </div>
 
       <div className="header-hospitals-mega__preview-body">
-        {hospitals.map((hospital) => (
-          <div
-            key={hospital.id}
-            className={`header-hospitals-mega__preview-info${
-              hospital.id === activeHospitalId ? " is-active" : ""
-            }`}
-          >
-            <p className="header-hospitals-mega__preview-name">{hospital.name}</p>
-            <p className="header-hospitals-mega__preview-address">
-              <MapPin size={14} aria-hidden="true" />
-              {hospital.address}
-            </p>
-            <Link href={hospital.href} className="header-hospitals-mega__preview-link">
-              View Hospital
-              <ArrowRight size={14} aria-hidden="true" />
-            </Link>
-          </div>
-        ))}
+        {hospitals.map((hospital) => {
+          const upcoming = isHospitalUpcoming(hospital);
+
+          return (
+            <div
+              key={hospital.id}
+              className={`header-hospitals-mega__preview-info${
+                hospital.id === activeHospitalId ? " is-active" : ""
+              }`}
+            >
+              <p className="header-hospitals-mega__preview-name">{hospital.name}</p>
+              <p className="header-hospitals-mega__preview-address">
+                <MapPin size={14} aria-hidden="true" />
+                {hospital.address}
+              </p>
+              {upcoming ? (
+                <p className="header-hospitals-mega__preview-upcoming">
+                  This location is part of our upcoming expansion in Uttar Pradesh.
+                </p>
+              ) : (
+                <Link href={hospital.href} className="header-hospitals-mega__preview-link">
+                  View Hospital
+                  <ArrowRight size={14} aria-hidden="true" />
+                </Link>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

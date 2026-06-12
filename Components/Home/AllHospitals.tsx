@@ -8,91 +8,35 @@ import type { Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ClientOnly from "@/Components/ui/ClientOnly";
 import TPATicker from "@/Components/Home/TPATicker";
+import {
+  getAllHospitals,
+  isHospitalUpcoming,
+  type HospitalLocation,
+} from "@/lib/hospitals";
 import "swiper/css";
 
-type Hospital = {
-  id: string;
-  name: string;
-  location: string;
-  state: string;
-  image: string;
+type HospitalCardData = HospitalLocation & {
   rating: number;
   reviews: number;
-  href: string;
 };
+
+const hospitalRatings: Record<string, { rating: number; reviews: number }> = {
+  raya: { rating: 4.8, reviews: 1240 },
+  "lakshi-nagar": { rating: 4.7, reviews: 860 },
+  etah: { rating: 4.6, reviews: 640 },
+  mathura: { rating: 0, reviews: 0 },
+};
+
+const hospitals: HospitalCardData[] = getAllHospitals().map((hospital) => ({
+  ...hospital,
+  rating: hospitalRatings[hospital.id]?.rating ?? 4.6,
+  reviews: hospitalRatings[hospital.id]?.reviews ?? 500,
+}));
 
 const locations = [
   "All Locations",
-  "Aligarh",
-  "Baghpat",
-  "Mainpuri",
-  "Shikohabad",
-  "Raya",
-  "Laxmi Nagar",
+  ...hospitals.map((hospital) => hospital.city),
 ] as const;
-
-const hospitals: Hospital[] = [
-  {
-    id: "aligarh",
-    name: "Sangi Hospital",
-    location: "Aligarh",
-    state: "Uttar Pradesh",
-    image: "/assets/images/home/20240920064059.jpg",
-    rating: 4.8,
-    reviews: 1240,
-    href: "/hospitals/aligarh",
-  },
-  {
-    id: "baghpat",
-    name: "Sangi Hospital",
-    location: "Baghpat",
-    state: "Uttar Pradesh",
-    image: "/assets/images/home/20250310083759.jpg",
-    rating: 4.6,
-    reviews: 980,
-    href: "/hospitals/baghpat",
-  },
-  {
-    id: "mainpuri",
-    name: "Sangi Hospital",
-    location: "Mainpuri",
-    state: "Uttar Pradesh",
-    image: "/assets/images/home/20250612045907.jpg",
-    rating: 4.7,
-    reviews: 860,
-    href: "/hospitals/mainpuri",
-  },
-  {
-    id: "shikohabad",
-    name: "Sangi Hospital",
-    location: "Shikohabad",
-    state: "Uttar Pradesh",
-    image: "/assets/images/home/20251125052239.jpg",
-    rating: 4.5,
-    reviews: 720,
-    href: "/hospitals/shikohabad",
-  },
-  {
-    id: "raya",
-    name: "Sangi Hospital",
-    location: "Raya",
-    state: "Uttar Pradesh",
-    image: "/assets/images/home/hero_bg_1.jpeg",
-    rating: 4.6,
-    reviews: 540,
-    href: "/hospitals/raya",
-  },
-  {
-    id: "laxmi-nagar",
-    name: "Sangi Hospital",
-    location: "Laxmi Nagar",
-    state: "Uttar Pradesh",
-    image: "/assets/images/home/servicehome.png",
-    rating: 4.7,
-    reviews: 690,
-    href: "/hospitals/laxmi-nagar",
-  },
-];
 
 function GoogleIcon() {
   return (
@@ -127,30 +71,46 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
-function HospitalCard({ hospital }: { hospital: Hospital }) {
-  return (
-    <Link href={hospital.href} className="hospital-card">
+function HospitalCard({ hospital }: { hospital: HospitalCardData }) {
+  const upcoming = isHospitalUpcoming(hospital);
+  const content = (
+    <>
       <div className="hospital-card__image-wrap">
         <Image
           src={hospital.image}
-          alt={`${hospital.name}, ${hospital.location}`}
+          alt={hospital.name}
           fill
           sizes="(max-width: 768px) 85vw, 284px"
           className="hospital-card__image"
         />
+        {upcoming ? (
+          <span className="hospital-card__badge">Upcoming Project</span>
+        ) : null}
       </div>
 
       <div className="hospital-card__body">
-        <h3 className="hospital-card__title">
-          {hospital.name}, {hospital.location}
-        </h3>
+        <h3 className="hospital-card__title">{hospital.name}</h3>
 
-        <div className="hospital-card__rating">
-          <GoogleIcon />
-          <StarRating rating={hospital.rating} />
-          <span className="hospital-card__score">{hospital.rating}</span>
-        </div>
+        {upcoming ? (
+          <p className="hospital-card__upcoming">Opening soon in Uttar Pradesh</p>
+        ) : (
+          <div className="hospital-card__rating">
+            <GoogleIcon />
+            <StarRating rating={hospital.rating} />
+            <span className="hospital-card__score">{hospital.rating}</span>
+          </div>
+        )}
       </div>
+    </>
+  );
+
+  if (upcoming) {
+    return <article className="hospital-card hospital-card--upcoming">{content}</article>;
+  }
+
+  return (
+    <Link href={hospital.href} className="hospital-card">
+      {content}
     </Link>
   );
 }
@@ -162,7 +122,7 @@ export default function AllHospitals() {
 
   const filteredHospitals = useMemo(() => {
     if (activeLocation === "All Locations") return hospitals;
-    return hospitals.filter((hospital) => hospital.location === activeLocation);
+    return hospitals.filter((hospital) => hospital.city === activeLocation);
   }, [activeLocation]);
 
   return (

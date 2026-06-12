@@ -438,36 +438,179 @@
   border-color: rgba(255, 255, 255, 0.16);
 }
 
-/* ─── Chairperson section ────────────────────────────────── */
-.chairperson__image-col {
+/* ─── Chairperson message ─────────────────────────────────── */
+.chairperson-message {
   position: relative;
+  background: var(--gradient-primary);
+  color: #ffffff;
+  isolation: isolate;
 }
 
-.chairperson__glow {
-  top: 50%;
-  left: 50%;
-  width: 110%;
-  height: 110%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(74, 111, 212, 0.35) 0%,
-    rgba(74, 111, 212, 0.12) 40%,
-    transparent 70%
+.chairperson-message__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: stretch;
+}
+
+@media (min-width: 992px) {
+  .chairperson-message__layout {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.chairperson-message__portrait {
+  position: relative;
+  display: flex;
+  min-height: clamp(22rem, 55vh, 32rem);
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (min-width: 992px) {
+  .chairperson-message__portrait {
+    min-height: 100%;
+    height: 100%;
+    border-bottom: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+.chairperson-message__photo-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  min-height: 100%;
+}
+
+.chairperson-message__photo {
+  object-fit: cover;
+  object-position: top center;
+}
+
+.chairperson-message__photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 12, 48, 0.08) 0%,
+    rgba(0, 12, 48, 0.35) 45%,
+    rgba(0, 12, 48, 0.88) 100%
   );
-  filter: blur(28px);
-  animation: chairperson-glow-pulse 4s ease-in-out infinite;
 }
 
-@keyframes chairperson-glow-pulse {
-  0%,
-  100% {
-    opacity: 0.7;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.06);
-  }
+.chairperson-message__intro {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: clamp(1.25rem, 3vw, 1.75rem) clamp(1.25rem, 3vw, 2rem);
+  text-align: center;
 }
+
+.chairperson-message__brand {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #ffffff;
+}
+
+.chairperson-message__heading {
+  margin: 0.85rem 0 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-weight: 600;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.chairperson-message__name {
+  margin: 1.25rem 0 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.chairperson-message__title {
+  margin: 0.45rem 0 0;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.chairperson-message__message {
+  background: rgba(0, 3, 40, 0.14);
+}
+
+.chairperson-message__content {
+  padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.chairperson-message__paragraph,
+.chairperson-message__quote p {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.chairperson-message__section-title {
+  margin: 1.25rem 0 0.6rem;
+  font-family: var(--font-heading);
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  font-weight: 700;
+  line-height: 1.35;
+  color: #ffffff;
+}
+
+.chairperson-message__section-title:first-child {
+  margin-top: 0;
+}
+
+.chairperson-message__quote {
+  margin: 0 0 1rem;
+  padding: 1rem 1.15rem;
+  border-left: 3px solid rgba(255, 255, 255, 0.42);
+  border-radius: 0 0.85rem 0.85rem 0;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.chairperson-message__quote p {
+  margin: 0;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.chairperson-message__signoff {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.chairperson-message__signoff p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.chairperson-message__signoff-name {
+  margin-top: 0.75rem !important;
+  font-family: var(--font-heading) !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+}
+
+.chairperson-message__signoff-role {
+  margin-top: 0.25rem !important;
+  color: rgba(255, 255, 255, 0.58) !important;
+}
+

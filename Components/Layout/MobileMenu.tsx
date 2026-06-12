@@ -10,7 +10,11 @@ import {
   X,
 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import { hospitalsMegaMenu } from "@/lib/hospitals";
+import {
+  getAllHospitals,
+  hospitalsMegaMenu,
+  isHospitalUpcoming,
+} from "@/lib/hospitals";
 import { mainNavItems } from "@/lib/navigation";
 import { patientCornerMegaMenu } from "@/lib/patient-corner";
 import { servicesMegaMenu } from "@/lib/services-menu";
@@ -282,101 +286,60 @@ export default function MobileMenu() {
                         isExpanded("hospitals") ? " is-open" : ""
                       }`}
                     >
-                      {hospitalsMegaMenu.regions.map((region) => (
-                        <div key={region.id} className="mobile-menu__nested">
-                          <button
-                            type="button"
-                            className={`mobile-menu__subtrigger${
-                              isExpanded(`hospitals-${region.id}`) ? " is-open" : ""
-                            }`}
-                            aria-expanded={isExpanded(`hospitals-${region.id}`)}
-                            onClick={() => toggleSection(`hospitals-${region.id}`)}
-                          >
-                            <span>{region.label}</span>
-                            <ChevronDown size={16} aria-hidden="true" />
-                          </button>
+                      <ul className="mobile-menu__hospital-list">
+                        {getAllHospitals().map((hospital) => {
+                          const upcoming = isHospitalUpcoming(hospital);
+                          const cardContent = (
+                            <>
+                              <span
+                                className="mobile-menu__hospital-thumb"
+                                style={{ position: "relative" }}
+                              >
+                                <Image
+                                  src={hospital.image}
+                                  alt=""
+                                  fill
+                                  sizes="56px"
+                                  className="mobile-menu__hospital-image"
+                                />
+                              </span>
+                              <span className="mobile-menu__hospital-copy">
+                                <span className="mobile-menu__hospital-name">
+                                  {hospital.name}
+                                </span>
+                                <span className="mobile-menu__hospital-city">
+                                  {upcoming ? "Upcoming Project" : hospital.city}
+                                </span>
+                              </span>
+                              {!upcoming ? (
+                                <ArrowRight
+                                  size={16}
+                                  className="mobile-menu__hospital-arrow"
+                                  aria-hidden="true"
+                                />
+                              ) : null}
+                            </>
+                          );
 
-                          <div
-                            className={`mobile-menu__nested-panel${
-                              isExpanded(`hospitals-${region.id}`) ? " is-open" : ""
-                            }`}
-                          >
-                            {region.states.map((state) => (
-                              <div key={state.id} className="mobile-menu__nested">
-                                <button
-                                  type="button"
-                                  className={`mobile-menu__subtrigger mobile-menu__subtrigger--state${
-                                    isExpanded(`hospitals-${region.id}-${state.id}`)
-                                      ? " is-open"
-                                      : ""
-                                  }`}
-                                  aria-expanded={
-                                    isExpanded(`hospitals-${region.id}-${state.id}`)
-                                  }
-                                  onClick={() =>
-                                    toggleSection(`hospitals-${region.id}-${state.id}`)
-                                  }
-                                >
-                                  <span>{state.label}</span>
-                                  <ChevronDown size={15} aria-hidden="true" />
-                                </button>
-
-                                <div
-                                  className={`mobile-menu__nested-panel${
-                                    isExpanded(`hospitals-${region.id}-${state.id}`)
-                                      ? " is-open"
-                                      : ""
-                                  }`}
-                                >
-                                  {state.hospitals.length > 0 ? (
-                                    <ul className="mobile-menu__hospital-list">
-                                      {state.hospitals.map((hospital) => (
-                                        <li key={hospital.id}>
-                                          <Link
-                                            href={hospital.href}
-                                            className="mobile-menu__hospital-card"
-                                            onClick={closeMenu}
-                                          >
-                                            <span
-                                              className="mobile-menu__hospital-thumb"
-                                              style={{ position: "relative" }}
-                                            >
-                                              <Image
-                                                src={hospital.image}
-                                                alt=""
-                                                fill
-                                                sizes="56px"
-                                                className="mobile-menu__hospital-image"
-                                              />
-                                            </span>
-                                            <span className="mobile-menu__hospital-copy">
-                                              <span className="mobile-menu__hospital-name">
-                                                {hospital.name}
-                                              </span>
-                                              <span className="mobile-menu__hospital-city">
-                                                {hospital.city}
-                                              </span>
-                                            </span>
-                                            <ArrowRight
-                                              size={16}
-                                              className="mobile-menu__hospital-arrow"
-                                              aria-hidden="true"
-                                            />
-                                          </Link>
-                                        </li>
-                                      ))}
-                                    </ul>
-                                  ) : (
-                                    <p className="mobile-menu__empty">
-                                      New locations in {state.label} coming soon.
-                                    </p>
-                                  )}
+                          return (
+                            <li key={hospital.id}>
+                              {upcoming ? (
+                                <div className="mobile-menu__hospital-card mobile-menu__hospital-card--upcoming">
+                                  {cardContent}
                                 </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
+                              ) : (
+                                <Link
+                                  href={hospital.href}
+                                  className="mobile-menu__hospital-card"
+                                  onClick={closeMenu}
+                                >
+                                  {cardContent}
+                                </Link>
+                              )}
+                            </li>
+                          );
+                        })}
+                      </ul>
 
                       <Link
                         href={hospitalsMegaMenu.viewAllHref}

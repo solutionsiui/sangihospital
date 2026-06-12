@@ -25,10 +25,12 @@ const wardsColumn = serviceColumns.find((c) => c.id === "wards");
 
 const hospitalLinks: MegaFooterLink[] = hospitalsMegaMenu.regions.flatMap((region) =>
   region.states.flatMap((state) =>
-    state.hospitals.map((hospital) => ({
-      label: hospital.name,
-      href: hospital.href,
-    })),
+    state.hospitals
+      .filter((hospital) => hospital.status !== "upcoming")
+      .map((hospital) => ({
+        label: hospital.name,
+        href: hospital.href,
+      })),
   ),
 );
 

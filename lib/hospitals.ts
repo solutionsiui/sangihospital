@@ -1,3 +1,5 @@
+export type HospitalStatus = "active" | "upcoming";
+
 export type HospitalLocation = {
   id: string;
   name: string;
@@ -5,6 +7,7 @@ export type HospitalLocation = {
   address: string;
   image: string;
   href: string;
+  status?: HospitalStatus;
 };
 
 export type HospitalState = {
@@ -20,7 +23,7 @@ export type HospitalRegion = {
 };
 
 export const hospitalsMegaMenu = {
-  viewAllHref: "/hospitals",
+  viewAllHref: "/#our-hospitals",
   regions: [
     {
       id: "north",
@@ -31,52 +34,38 @@ export const hospitalsMegaMenu = {
           label: "Uttar Pradesh",
           hospitals: [
             {
-              id: "aligarh",
-              name: "Sangi Hospital, Aligarh",
-              city: "Aligarh",
-              address: "Civil Lines, Aligarh, Uttar Pradesh",
-              image: "/assets/images/home/20240920064059.jpg",
-              href: "/hospitals/aligarh",
-            },
-            {
-              id: "baghpat",
-              name: "Sangi Hospital, Baghpat",
-              city: "Baghpat",
-              address: "Baraut Road, Baghpat, Uttar Pradesh",
-              image: "/assets/images/home/20250310083759.jpg",
-              href: "/hospitals/baghpat",
-            },
-            {
-              id: "mainpuri",
-              name: "Sangi Hospital, Mainpuri",
-              city: "Mainpuri",
-              address: "Station Road, Mainpuri, Uttar Pradesh",
-              image: "/assets/images/home/20250612045907.jpg",
-              href: "/hospitals/mainpuri",
-            },
-            {
-              id: "shikohabad",
-              name: "Sangi Hospital, Shikohabad",
-              city: "Shikohabad",
-              address: "Firozabad Road, Shikohabad, Uttar Pradesh",
-              image: "/assets/images/home/20251125052239.jpg",
-              href: "/hospitals/shikohabad",
-            },
-            {
               id: "raya",
               name: "Sangi Hospital, Raya",
               city: "Raya",
-              address: "Mathura Road, Raya, Mathura, Uttar Pradesh",
-              image: "/assets/images/home/hero_bg_1.jpeg",
+              address: "Mathura Road, Raya, Uttar Pradesh",
+              image: "/assets/images/about/about-hospital.jpg",
               href: "/hospitals/raya",
             },
             {
-              id: "laxmi-nagar",
-              name: "Sangi Hospital, Laxmi Nagar",
-              city: "Laxmi Nagar",
-              address: "Laxmi Nagar, Mathura, Uttar Pradesh",
+              id: "lakshi-nagar",
+              name: "Sangi Hospital, Lakshi Nagar",
+              city: "Lakshi Nagar",
+              address: "Lakshi Nagar, Uttar Pradesh",
               image: "/assets/images/home/servicehome.png",
-              href: "/hospitals/laxmi-nagar",
+              href: "/hospitals/lakshi-nagar",
+            },
+            {
+              id: "etah",
+              name: "Sangi Hospital, Etah",
+              city: "Etah",
+              address: "Etah, Uttar Pradesh",
+              image: "/assets/images/home/hero_bg_1.jpeg",
+              href: "/hospitals/etah",
+              status: "upcoming",
+            },
+            {
+              id: "mathura",
+              name: "Sangi Hospital, Mathura",
+              city: "Mathura",
+              address: "Mathura, Uttar Pradesh",
+              image: "/assets/images/about/about-banner.jpg",
+              href: "/hospitals/mathura",
+              status: "upcoming",
             },
           ],
         },
@@ -157,4 +146,14 @@ export function getDefaultStateForRegion(region: HospitalRegion): HospitalState 
   return (
     region.states.find((state) => state.hospitals.length > 0) ?? region.states[0]
   );
+}
+
+export function getAllHospitals(): HospitalLocation[] {
+  return hospitalsMegaMenu.regions.flatMap((region) =>
+    region.states.flatMap((state) => state.hospitals),
+  );
+}
+
+export function isHospitalUpcoming(hospital: HospitalLocation): boolean {
+  return hospital.status === "upcoming";
 }

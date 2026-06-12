@@ -563,6 +563,11 @@
   min-height: 22rem;
 }
 
+.header-hospitals-mega__body--simple {
+  grid-template-columns: 1fr;
+  min-height: auto;
+}
+
 .header-hospitals-mega__sidebar {
   display: flex;
   flex-direction: column;
@@ -618,7 +623,10 @@
 }
 
 .header-hospitals-mega__link {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
   padding: 0.65rem 0.85rem;
   border-radius: 0.55rem;
   font-family: var(--font-body);
@@ -630,6 +638,44 @@
     color 0.22s ease,
     background-color 0.22s ease,
     transform 0.22s ease;
+}
+
+.header-hospitals-mega__link.is-upcoming {
+  cursor: default;
+}
+
+.header-hospitals-mega__link-label {
+  min-width: 0;
+}
+
+.header-hospitals-mega__badge,
+.header-hospitals-mega__preview-badge {
+  flex-shrink: 0;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  background: rgba(74, 111, 212, 0.12);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--foreground-accent);
+}
+
+.header-hospitals-mega__preview-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 8px 20px rgba(0, 3, 40, 0.12);
+}
+
+.header-hospitals-mega__preview-upcoming {
+  margin: 0.85rem 0 0;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: rgba(19, 37, 115, 0.62);
 }
 
 .header-hospitals-mega__link:hover,
@@ -803,7 +849,7 @@
 }
 
 @media (max-width: 1536px) {
-  .header-hospitals-mega__body {
+  .header-hospitals-mega__body:not(.header-hospitals-mega__body--simple) {
     grid-template-columns: minmax(9.5rem, 11rem) minmax(0, 1fr);
   }
 

@@ -33,7 +33,7 @@ export const careersPage = {
     description:
       "At Sangi Hospital, we invest in people who care deeply about patients. Explore open roles, apply online, and take the next step in your medical career with structured growth, modern facilities, and compassionate teamwork.",
     stats: [
-      { value: "6+", label: "Hospital Locations" },
+      { value: "4", label: "Hospital Locations" },
       { value: "18+", label: "Specialities" },
       { value: "500+", label: "Team Members" },
       { value: "24x7", label: "Clinical Operations" },
@@ -62,7 +62,7 @@ export const careersPage = {
       {
         title: "Multi-Location Opportunities",
         description:
-          "Choose from hospitals across Aligarh, Baghpat, Mainpuri, Shikohabad, Raya, and Laxmi Nagar.",
+          "Choose from hospitals across Raya and Lakshi Nagar, with upcoming projects in Etah and Mathura.",
       },
     ],
   },

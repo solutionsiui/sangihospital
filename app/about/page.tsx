@@ -5,6 +5,7 @@ import MissionVision from "@/Components/About/MissionVision";
 import CoreValues from "@/Components/About/CoreValues";
 import OurJourney from "@/Components/About/OurJourney";
 import ChairpersonMessage from "@/Components/About/ChairpersonMessage";
+import NabhCerti from "@/Components/ui/NabhCerti";
 import "@/Components/About/about.css";
 
 export const metadata = {
@@ -30,9 +31,10 @@ export default function AboutPage() {
       <AboutHero />
       <StatsStrip />
       <MissionVision />
-      <CoreValues />
       <OurJourney />
+      <CoreValues />
       <ChairpersonMessage />
+      <NabhCerti />
       {/* <WhyChooseUs /> */}
     </main>
   );
