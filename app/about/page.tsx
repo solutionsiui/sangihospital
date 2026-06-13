@@ -34,7 +34,7 @@ export default function AboutPage() {
       <OurJourney />
       <CoreValues />
       <ChairpersonMessage />
-      <NabhCerti />
+      {/* <NabhCerti /> */}
       {/* <WhyChooseUs /> */}
     </main>
   );

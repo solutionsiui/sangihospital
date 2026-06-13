@@ -18,7 +18,7 @@ const caseStories: CaseStory[] = [
     category: "Personal Consulting",
     title: "Supports Patients",
     badge: "Recovery Care",
-    image: "/assets/images/home/servicehome.png",
+    image: "/assets/images/home/supportingpatients.jpg",
     href: "/case-studies/patient-support",
   },
   {
@@ -26,7 +26,7 @@ const caseStories: CaseStory[] = [
     category: "Gynecology Operation",
     title: "Successful Maternity Care",
     badge: "Maternity",
-    image: "/assets/images/home/20250310083759.jpg",
+    image: "/assets/images/home/succesfulmaternitycare.jpg",
     href: "/case-studies/gynecology",
   },
   {
@@ -34,7 +34,7 @@ const caseStories: CaseStory[] = [
     category: "Heart Department",
     title: "Advanced Heart Surgery",
     badge: "Cardiology",
-    image: "/assets/images/home/20240920064059.jpg",
+    image: "/assets/images/home/advancehurtsergery.jpg",
     href: "/case-studies/cardiology",
   },
 ];

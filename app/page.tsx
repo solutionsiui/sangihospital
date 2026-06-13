@@ -73,8 +73,8 @@ export default function Home() {
         <AppointmentCta />
         <AllHospitals />
         <Sangidef />
-        <Testimonials />
         <NabhCerti />
+        <Testimonials />
       </main>
     </>
   );
