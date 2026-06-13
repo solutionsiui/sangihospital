@@ -92,11 +92,20 @@ export const megaFooterColumns: MegaFooterColumn[] = [
   {
     sections: [
       {
+        title: "Leadership",
+        links: [
+          { label: "Message from Chairman", href: "/chairman-message" },
+          { label: "Message from Founder", href: "/founder-message" },
+        ],
+      },
+    ],
+  },
+  {
+    sections: [
+      {
         title: "Patient Corner",
         links: [
           { label: "About Sangi Hospital", href: "/about" },
-          { label: "Chairman's Message", href: "/chairman-message" },
-          { label: "Founder's Message", href: "/founder-message" },
           { label: "Book Appointment", href: "/appointment" },
           ...patientCornerMegaMenu.sections.map((section) => ({
             label: section.label,

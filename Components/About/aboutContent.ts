@@ -67,7 +67,7 @@ export type ChairpersonBlock =
 export const chairpersonMessage = {
   brand: "SANGI HOSPITAL",
   heading: "A Message from the Chairperson",
-  name: "Sangita Singh",
+  name: "Dr.Sangita Singh",
   title: "Founder & Chairperson, Sangi Hospital",
   image: "/assets/images/about/chairpersonupdated.jpeg",
   blocks: [
@@ -119,7 +119,7 @@ export const chairpersonMessage = {
       type: "signoff",
       lines: [
         "With gratitude,",
-        "Sangita Singh",
+        "Dr. Sangita Singh",
         "Founder & Chairperson, Sangi Hospital",
       ],
     },

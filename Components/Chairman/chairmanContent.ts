@@ -8,7 +8,7 @@ export const chairmanPage = {
   },
 
   chairman: {
-    name: "Mrs. Sangita Singh",
+    name: "Dr. Sangita Singh",
     title: "Chairman",
     organization: "Sangi Hospital",
     image: "/assets/images/chairman/chairman.png",
