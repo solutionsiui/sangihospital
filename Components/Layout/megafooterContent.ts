@@ -95,6 +95,8 @@ export const megaFooterColumns: MegaFooterColumn[] = [
         title: "Patient Corner",
         links: [
           { label: "About Sangi Hospital", href: "/about" },
+          { label: "Chairman's Message", href: "/chairman-message" },
+          { label: "Founder's Message", href: "/founder-message" },
           { label: "Book Appointment", href: "/appointment" },
           ...patientCornerMegaMenu.sections.map((section) => ({
             label: section.label,

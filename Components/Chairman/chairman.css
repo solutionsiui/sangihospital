@@ -1,0 +1,309 @@
+/* ═══════════════════════════════════════════════════════════
+   Chairman Message — Editorial Content Layout
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── Editorial Section ──────────────────────────────────── */
+.chairman-editorial {
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+  padding: 4rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .chairman-editorial {
+    padding: 5rem 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .chairman-editorial {
+    padding: 6rem 2.5rem;
+  }
+}
+
+.chairman-editorial__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+  .chairman-editorial__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    align-items: stretch;
+  }
+}
+
+@media (min-width: 1280px) {
+  .chairman-editorial__inner {
+    grid-template-columns: 55% 1fr;
+  }
+}
+
+/* ─── Left column — Text + Stats ─────────────────────────── */
+.chairman-editorial__text {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1024px) {
+  .chairman-editorial__text {
+    padding: 1rem 4rem 1rem 0;
+  }
+}
+
+.chairman-editorial__heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--foreground-deeper);
+}
+
+.chairman-editorial__heading-line1 {
+  display: block;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--foreground-accent);
+}
+
+.chairman-editorial__heading-line2 {
+  display: block;
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 800;
+  text-transform: lowercase;
+  color: var(--foreground-deeper);
+}
+
+.chairman-editorial__tagline {
+  margin-top: 0.75rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+  font-weight: 400;
+  color: #94a3b8;
+  letter-spacing: 0.01em;
+}
+
+/* Intro paragraphs */
+.chairman-editorial__intro {
+  margin-top: 2rem;
+}
+
+.chairman-editorial__intro-para {
+  margin-bottom: 1.1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.85;
+  color: #475569;
+}
+
+.chairman-editorial__intro-para:first-child::first-letter {
+  float: left;
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 0.85;
+  margin-right: 0.5rem;
+  margin-top: 0.15rem;
+  color: var(--foreground);
+}
+
+/* Stats row — left column, below text */
+.chairman-editorial__stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e8edf3;
+}
+
+.chairman-editorial__stat-value {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--foreground-deeper);
+}
+
+.chairman-editorial__stat-label {
+  margin-top: 0.25rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ─── Right column — Image panel ─────────────────────────── */
+.chairman-editorial__image-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+@media (min-width: 1024px) {
+  .chairman-editorial__image-panel {
+    padding: 1rem 0 1rem 2rem;
+  }
+}
+
+.chairman-editorial__photo {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 3 / 4;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.chairman-editorial__photo img {
+  object-fit: contain;
+  object-position: bottom center;
+}
+
+/* Name plate under the image */
+.chairman-editorial__name-plate {
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
+.chairman-editorial__name {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--foreground-deeper);
+}
+
+.chairman-editorial__designation {
+  margin-top: 0.15rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #94a3b8;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Message Body — Continued text below
+   ═══════════════════════════════════════════════════════════ */
+.chairman-body {
+  padding: 5rem 1.5rem;
+  background: #f8fafc;
+}
+
+@media (min-width: 768px) {
+  .chairman-body {
+    padding: 6rem 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .chairman-body {
+    padding: 7rem 2.5rem;
+  }
+}
+
+.chairman-body__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Pull quote */
+.chairman-body__quote {
+  position: relative;
+  max-width: 50rem;
+  margin: 0 auto 4rem;
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.chairman-body__quote::before {
+  content: "\201C";
+  position: absolute;
+  top: -1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-heading);
+  font-size: 6rem;
+  line-height: 1;
+  color: var(--foreground-soft);
+  pointer-events: none;
+}
+
+.chairman-body__quote-text {
+  font-family: var(--font-heading);
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--foreground-deeper);
+}
+
+.chairman-body__quote-line {
+  display: block;
+  width: 3rem;
+  height: 3px;
+  margin: 1.5rem auto 0;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+}
+
+/* Two-column text */
+.chairman-body__text {
+  columns: 1;
+  column-gap: 3rem;
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .chairman-body__text {
+    columns: 2;
+  }
+}
+
+.chairman-body__paragraph {
+  margin-bottom: 1.35rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.85;
+  color: #475569;
+  break-inside: avoid;
+}
+
+/* Closing / signature */
+.chairman-body__closing {
+  max-width: 56rem;
+  margin: 3rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.chairman-body__closing-note {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: #64748b;
+}
+
+.chairman-body__signature-name {
+  margin-top: 1rem;
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--foreground-deeper);
+}
+
+.chairman-body__signature-title {
+  margin-top: 0.15rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: #94a3b8;
+}
