@@ -10,7 +10,7 @@ import {
   getServiceById,
   servicesMegaMenu,
   type ServiceItem,
-} from "@/lib/services-menu";
+} from "@/lib/services-menu"; 
 
 export default function ServicesMegaMenu() {
   const { brandImage, brandImageAlt, columns, description, title, viewAllHref } =

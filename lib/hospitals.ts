@@ -42,12 +42,12 @@ export const hospitalsMegaMenu = {
               href: "/hospitals/raya",
             },
             {
-              id: "lakshi-nagar",
-              name: "Sangi Hospital, Lakshi Nagar",
-              city: "Lakshi Nagar",
-              address: "Lakshi Nagar, Uttar Pradesh",
+              id: "lakshmi-nagar",
+              name: "Sangi Hospital, Lakshmi Nagar",
+              city: "Lakshmi Nagar",
+              address: "Lakshmi Nagar, Uttar Pradesh",
               image: "/assets/images/home/servicehome.png",
-              href: "/hospitals/lakshi-nagar",
+              href: "/hospitals/lakshmi-nagar",
             },
             {
               id: "etah",
