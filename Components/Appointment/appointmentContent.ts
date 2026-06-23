@@ -7,7 +7,7 @@ export const appointmentPage = {
     title: "Book an Appointment",
     subtitle:
       "Schedule a consultation with Sangi Hospital specialists — choose your location, department, and preferred visit time.",
-    backgroundImage: "/assets/images/home/20240920064059.jpg",
+    backgroundImage: "/assets/images/bookanappinnerhero.png",
   },
   intro: {
     eyebrow: "Patient Booking",
