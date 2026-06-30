@@ -1,33 +1,34 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Activity,
   ArrowRight,
-  FileCode2,
-  MonitorSmartphone,
+  HeartPulse,
+  ScanLine,
+  Siren,
 } from "lucide-react";
+import servicesHeroImage from "../../public/assets/images/home/servicehome.png";
 
 const services = [
   {
-    title: "Medical Service",
+    title: "24x7 Emergency Care",
     description:
-      "Drugs and therapies supplied by better help or a qualified professional.",
-    href: "/services/medical",
-    icon: MonitorSmartphone,
+      "Round-the-clock emergency response, trauma support, and critical care when every minute matters.",
+    href: "/services/emergency-services",
+    icon: Siren,
   },
   {
-    title: "Radiology & Pathology Test",
+    title: "Diagnostics & Imaging",
     description:
-      "Drugs and therapies supplied by better help or a qualified professional.",
-    href: "/services/radiology",
-    icon: FileCode2,
+      "Digital X-Ray, CT scan, ultrasound, pathology, and lab testing for faster, accurate diagnosis.",
+    href: "/services/digital-x-ray",
+    icon: ScanLine,
   },
   {
-    title: "Heart Beat Checkup",
+    title: "Cardiac Health Checkup",
     description:
-      "Drugs and therapies supplied by better help or a qualified professional.",
-    href: "/services/heart-checkup",
-    icon: Activity,
+      "Echocardiography and heart function assessment to detect risks early and guide treatment.",
+    href: "/services/echocardiography",
+    icon: HeartPulse,
   },
 ];
 
@@ -38,8 +39,9 @@ export default function Services() {
         <div className="services-section__grid">
           <div className="services-section__cards-col">
             <p className="services-intro">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
-              tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+              Sangi Hospital offers an integrated range of medical services — from
+              24x7 emergency and critical care to diagnostics, therapy, pharmacy,
+              and inpatient wards across our network.
             </p>
 
             <div className="services-section__list">
@@ -72,20 +74,22 @@ export default function Services() {
 
           <div className="services-section__visual-col">
             <div className="services-content">
-              <p className="services-eyebrow">Expertise</p>
+              <p className="services-eyebrow">Complete Care</p>
 
               <h2 className="services-heading">
-                We Offer More Than Services &amp; All Solutions Medical.
+                Trusted Hospital Services Under One Roof
               </h2>
 
               <div className="services-image-wrap">
                 <Image
-                  src="/assets/images/home/servicehome.png"
+                  src={servicesHeroImage}
                   alt="Medical professionals at Sangi Hospital"
-                  fill
-                  sizes="(max-width: 992px) 90vw, 34rem"
+                  width={servicesHeroImage.width}
+                  height={servicesHeroImage.height}
+                  sizes="(max-width: 768px) 85vw, (max-width: 992px) 55vw, 26rem"
                   className="services-image"
-                  priority={false}
+                  unoptimized
+                  priority
                 />
               </div>
             </div>

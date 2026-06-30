@@ -4,6 +4,7 @@ import ServicesMegaMenu from "@/Components/Layout/ServicesMegaMenu";
 import SpecialitiesMegaMenu from "@/Components/Layout/SpecialitiesMegaMenu";
 import HospitalsMegaMenu from "@/Components/Layout/HospitalsMegaMenu";
 import PatientCornerMegaMenu from "@/Components/Layout/PatientCornerMegaMenu";
+import HeaderNav from "@/Components/Layout/HeaderNav";
 import HeaderMegaNavItem from "@/Components/Layout/HeaderMegaNavItem";
 import MobileMenu from "@/Components/Layout/MobileMenu";
 import ClientOnly from "@/Components/ui/ClientOnly";
@@ -104,7 +105,7 @@ export default function Header() {
           />
         </Link>
 
-        <nav className="header-nav" aria-label="Main navigation">
+        <HeaderNav>
           {mainNavItems.map((item) =>
             item.megaMenu ? (
               <HeaderMegaNavItem
@@ -154,7 +155,7 @@ export default function Header() {
               </div>
             ),
           )}
-        </nav>
+        </HeaderNav>
 
         <div className="flex shrink-0 items-center gap-3 sm:gap-5">
           <button

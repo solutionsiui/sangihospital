@@ -11,14 +11,14 @@ export const patientCornerMegaMenu = {
     "Explore health articles, expert podcasts, and inspiring recovery stories from the Sangi Hospital community.",
   image: "/assets/images/home/hero_bg_1.jpeg",
   imageAlt: "Patients at Sangi Hospital",
-  viewAllHref: "/patient-corner",
+  viewAllHref: "/patient-stories",
   sections: [
     {
       id: "blogs",
       label: "Blogs",
       description:
         "Read expert health articles, wellness tips, and medical guides written by our doctors.",
-      href: "/patient-corner/blogs",
+      href: "/blog",
     },
     {
       id: "podcasts",
@@ -32,7 +32,7 @@ export const patientCornerMegaMenu = {
       label: "Patient Stories",
       description:
         "Discover real recovery journeys and heartfelt experiences shared by our patients.",
-      href: "/patient-corner/patient-stories",
+      href: "/patient-stories",
     },
   ] satisfies PatientCornerSection[],
 } as const;

@@ -46,7 +46,7 @@ export const hospitalsMegaMenu = {
               name: "Sangi Hospital, Lakshmi Nagar",
               city: "Lakshmi Nagar",
               address: "Lakshmi Nagar, Uttar Pradesh",
-              image: "/assets/images/home/servicehome.png",
+              image: "/assets/sangiimages1/sangiimages1/homepage/twofl.jpeg",
               href: "/hospitals/lakshmi-nagar",
             },
             {
@@ -54,7 +54,7 @@ export const hospitalsMegaMenu = {
               name: "Sangi Hospital, Etah",
               city: "Etah",
               address: "Etah, Uttar Pradesh",
-              image: "/assets/images/home/hero_bg_1.jpeg",
+              image: "/assets/images/about/about-banner.jpg",
               href: "/hospitals/etah",
               status: "upcoming",
             },

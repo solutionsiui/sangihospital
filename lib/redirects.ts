@@ -66,15 +66,25 @@ export const siteRedirects: Redirect[] = [
     permanent: false,
   },
 
-  // Navigation — patient corner
+  // Patient corner — legacy URLs and podcasts placeholder
   {
     source: "/patient-corner",
-    destination: "/",
-    permanent: false,
+    destination: "/patient-stories",
+    permanent: true,
   },
   {
-    source: "/patient-corner/:path*",
-    destination: "/",
+    source: "/patient-corner/patient-stories",
+    destination: "/patient-stories",
+    permanent: true,
+  },
+  {
+    source: "/patient-corner/patient-stories/:slug",
+    destination: "/patient-stories/:slug",
+    permanent: true,
+  },
+  {
+    source: "/patient-corner/podcasts",
+    destination: "/appointment",
     permanent: false,
   },
 

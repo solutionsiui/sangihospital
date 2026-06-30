@@ -13,7 +13,7 @@ export const specialitiesPage = {
     title: "Our Specialities",
     subtitle:
       "Comprehensive medical expertise across departments — led by experienced specialists at Sangi Hospital.",
-    backgroundImage: "/assets/images/home/servicehome.png",
+    backgroundImage: "/assets/images/specialities/specialities.jpg",
   },
   intro: {
     eyebrow: "Medical Excellence",
@@ -32,7 +32,7 @@ export const specialitiesPage = {
       value: "150K+",
       label: "Patients Treated Annually",
     },
-    image: "/assets/images/home/20240920064059.jpg",
+    image: "/assets/images/specialities/specialities.jpg",
   },
   highlights: [
     {

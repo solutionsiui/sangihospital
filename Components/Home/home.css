@@ -346,7 +346,7 @@
   .services-section__grid {
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     gap: clamp(2rem, 4vw, 3rem);
-    align-items: start;
+    align-items: center;
   }
 }
 
@@ -364,12 +364,14 @@
   display: flex;
   min-width: 0;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (min-width: 992px) {
   .services-section__visual-col {
-    justify-content: center;
+    align-items: flex-end;
+    align-self: center;
   }
 }
 
@@ -378,7 +380,7 @@
   font-size: 0.95rem;
   line-height: 1.75;
   color: rgba(255, 255, 255, 0.82);
-  max-width: 34rem;
+  
 }
 
 @media (min-width: 992px) {
@@ -403,12 +405,23 @@
   display: flex;
   width: 100%;
   min-width: 0;
+  max-width: 100%;
   flex-direction: column;
+  align-items: center;
 }
 
 @media (min-width: 992px) {
   .services-content {
-    padding-left: clamp(1rem, 3vw, 2.5rem);
+    align-items: flex-start;
+    max-width: 32rem;
+    margin-left: auto;
+    padding-left: clamp(1rem, 3vw, 2rem);
+  }
+}
+
+@media (min-width: 1200px) {
+  .services-content {
+    max-width: 36rem;
   }
 }
 
@@ -428,12 +441,13 @@
   font-weight: 700;
   line-height: 1.15;
   color: #ffffff;
-  max-width: 34rem;
+  max-width: 100%;
 }
 
 @media (min-width: 992px) {
   .services-heading {
-    margin-bottom: 2rem;
+    margin-bottom: 1.75rem;
+    max-width: 22rem;
   }
 }
 
@@ -520,26 +534,45 @@
 }
 
 .services-image-wrap {
-  position: relative;
-  width: 100%;
-  max-width: 34rem;
-  aspect-ratio: 5 / 6;
+  width: min(100%, 17.5rem);
   margin-inline: auto;
-  overflow: hidden;
+  flex-shrink: 0;
   line-height: 0;
+  overflow: hidden;
+}
+
+.services-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: scale(1.5);
+  transform-origin: top center;
+}
+
+@media (min-width: 576px) {
+  .services-image-wrap {
+    width: min(100%, 20rem);
+  }
+}
+
+@media (min-width: 768px) {
+  .services-image-wrap {
+    width: min(100%, 22rem);
+  }
 }
 
 @media (min-width: 992px) {
   .services-image-wrap {
-    margin-left: auto;
+    width: min(100%, 24rem);
+    margin-left: 0;
     margin-right: 0;
-    max-width: min(34rem, 100%);
   }
 }
 
-.services-image {
-  object-fit: contain;
-  object-position: center bottom;
+@media (min-width: 1200px) {
+  .services-image-wrap {
+    width: min(100%, 26rem);
+  }
 }
 
 /* ── Appointment CTA ── */

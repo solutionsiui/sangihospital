@@ -32,7 +32,7 @@ export default function AboutPage() {
       <MissionVision />
       <OurJourney />
       <CoreValues />
-      <ChairpersonMessage />
+      {/* <ChairpersonMessage /> */}
       {/* <NabhCerti /> */}
       {/* <WhyChooseUs /> */}
     </main>

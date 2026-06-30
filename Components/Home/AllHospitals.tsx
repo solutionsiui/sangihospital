@@ -20,15 +20,19 @@ type HospitalCardData = HospitalLocation & {
   reviews: number;
 };
 
+const LAKSHMI_NAGAR_IMAGE =
+  "/assets/sangiimages1/sangiimages1/homepage/twofl.jpeg";
+
 const hospitalRatings: Record<string, { rating: number; reviews: number }> = {
   raya: { rating: 4.8, reviews: 1240 },
-  "lakshi-nagar": { rating: 4.7, reviews: 860 },
+  "lakshmi-nagar": { rating: 4.7, reviews: 860 },
   etah: { rating: 4.6, reviews: 640 },
   mathura: { rating: 0, reviews: 0 },
 };
 
 const hospitals: HospitalCardData[] = getAllHospitals().map((hospital) => ({
   ...hospital,
+  image: hospital.id === "lakshmi-nagar" ? LAKSHMI_NAGAR_IMAGE : hospital.image,
   rating: hospitalRatings[hospital.id]?.rating ?? 4.6,
   reviews: hospitalRatings[hospital.id]?.reviews ?? 500,
 }));

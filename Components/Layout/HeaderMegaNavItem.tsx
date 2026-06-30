@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   useCallback,
   useEffect,
@@ -8,6 +9,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { useHeaderNav } from "@/Components/Layout/HeaderNavContext";
 
 type HeaderMegaNavItemProps = {
   label: string;
@@ -34,13 +36,15 @@ function ChevronDownIcon() {
   );
 }
 
-const CLOSE_DELAY_MS = 300;
+const CLOSE_DELAY_MS = 120;
 
 export default function HeaderMegaNavItem({
   label,
   href,
   children,
 }: HeaderMegaNavItemProps) {
+  const pathname = usePathname();
+  const { registerCloser } = useHeaderNav();
   const [isOpen, setIsOpen] = useState(false);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -52,14 +56,14 @@ export default function HeaderMegaNavItem({
     }
   }, []);
 
-  const openMenu = useCallback(() => {
-    clearCloseTimer();
-    setIsOpen(true);
-  }, [clearCloseTimer]);
-
   const closeMenu = useCallback(() => {
     clearCloseTimer();
     setIsOpen(false);
+  }, [clearCloseTimer]);
+
+  const openMenu = useCallback(() => {
+    clearCloseTimer();
+    setIsOpen(true);
   }, [clearCloseTimer]);
 
   const scheduleClose = useCallback(() => {
@@ -69,36 +73,34 @@ export default function HeaderMegaNavItem({
     }, CLOSE_DELAY_MS);
   }, [clearCloseTimer]);
 
+  useEffect(() => registerCloser(closeMenu), [registerCloser, closeMenu]);
+
   useEffect(() => clearCloseTimer, [clearCloseTimer]);
 
   useEffect(() => {
-    if (!isOpen) return;
+    closeMenu();
+  }, [pathname, closeMenu]);
 
-    const handlePointerDown = (event: PointerEvent) => {
-      if (!containerRef.current?.contains(event.target as Node)) {
-        closeMenu();
-      }
-    };
+  const handlePointerEnter = () => {
+    openMenu();
+  };
 
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        closeMenu();
-      }
-    };
+  const handlePointerLeave = (event: React.PointerEvent<HTMLDivElement>) => {
+    const nextTarget = event.relatedTarget;
 
-    document.addEventListener("pointerdown", handlePointerDown);
-    document.addEventListener("keydown", handleKeyDown);
+    if (
+      nextTarget instanceof Node &&
+      containerRef.current?.contains(nextTarget)
+    ) {
+      return;
+    }
 
-    return () => {
-      document.removeEventListener("pointerdown", handlePointerDown);
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isOpen, closeMenu]);
+    scheduleClose();
+  };
 
-  const handleTriggerClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!isOpen) {
-      event.preventDefault();
-      openMenu();
+  const handleLinkClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if ((event.target as HTMLElement).closest("a")) {
+      closeMenu();
     }
   };
 
@@ -108,21 +110,14 @@ export default function HeaderMegaNavItem({
       className={`header-nav-item header-nav-item--mega${
         isOpen ? " is-mega-open" : ""
       }`}
-      onPointerEnter={openMenu}
-      onPointerLeave={scheduleClose}
-      onFocusCapture={openMenu}
-      onBlurCapture={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
-          scheduleClose();
-        }
-      }}
+      onPointerEnter={handlePointerEnter}
+      onPointerLeave={handlePointerLeave}
     >
       <Link
         href={href}
         className="header-nav-link font-body"
         aria-expanded={isOpen}
         aria-haspopup="true"
-        onClick={handleTriggerClick}
       >
         {label}
         <ChevronDownIcon />
@@ -130,8 +125,9 @@ export default function HeaderMegaNavItem({
 
       <div
         className="header-mega__slot"
-        onPointerEnter={openMenu}
-        onPointerLeave={scheduleClose}
+        onPointerEnter={handlePointerEnter}
+        onPointerLeave={handlePointerLeave}
+        onClickCapture={handleLinkClick}
       >
         {children}
       </div>

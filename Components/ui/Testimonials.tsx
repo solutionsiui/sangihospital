@@ -24,7 +24,7 @@ const testimonials: Testimonial[] = [
     id: "1",
     quote:
       "The care we received at Sangi Hospital was exceptional. From admission to discharge, the doctors and nursing staff were attentive, compassionate, and highly professional throughout our stay.",
-    name: "Mildred Payne",
+    name: "Jayesh Chelani",
     role: "Patient — Cardiology",
     avatar: "/assets/images/avatars/patient-1.jpg",
   },

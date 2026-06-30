@@ -29,7 +29,7 @@ export const mainNavItems: NavItem[] = [
   },
   {
     label: "Patient Corner",
-    href: "/patient-corner",
+    href: "/patient-stories",
     megaMenu: "patient-corner",
   },
   { label: "Contact", href: "/contact" },

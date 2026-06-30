@@ -58,6 +58,7 @@ const images = {
   facility: "/assets/images/home/20250612045907.jpg",
   ward: "/assets/images/home/20251125052239.jpg",
   about: "/assets/images/about/about-banner.jpg",
+  innerhero: "/assets/sangiimages1/sangiimages1/services/serviceinner.jpg",
 } as const; 
 
 function createService(
@@ -364,7 +365,7 @@ export const servicesPage = {
     title: "Our Hospital Services",
     subtitle:
       "Round-the-clock clinical support, advanced diagnostics, and comfortable inpatient facilities across the Sangi Hospital network.",
-    backgroundImage: images.diagnostics,
+    backgroundImage: images.innerhero,
   },
   intro: {
     eyebrow: "Complete Care",
@@ -383,7 +384,7 @@ export const servicesPage = {
       value: "100%",
       label: "Patient-Centred Service Delivery",
     },
-    image: images.clinical,
+    image: images.innerhero,
   },
   highlights: [
     {
