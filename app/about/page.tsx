@@ -5,6 +5,7 @@ import MissionVision from "@/Components/About/MissionVision";
 import CoreValues from "@/Components/About/CoreValues";
 import OurJourney from "@/Components/About/OurJourney";
 import ChairpersonMessage from "@/Components/About/ChairpersonMessage";
+import aboutBanner from "../../public/assets/images/about/about-banner.jpg";
 import "@/Components/About/about.css";
 
 export const metadata = {
@@ -21,7 +22,7 @@ export default function AboutPage() {
         eyebrow="Who We Are"
         title="About Us"
         subtitle="Compassionate care, modern medicine, and a commitment to your well-being."
-        backgroundImage="/assets/images/about/about-banner.jpg"
+        backgroundImage={aboutBanner}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "About Us" },

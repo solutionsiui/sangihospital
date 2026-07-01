@@ -799,6 +799,13 @@
   color: #c62828;
 }
 
+.appointment-cta__success {
+  margin: 0.5rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #1e8e5a;
+}
+
 .appointment-cta__submit {
   width: 100%;
   margin-top: 0.35rem;

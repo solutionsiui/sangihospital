@@ -16,6 +16,7 @@ import {
   appointmentPage,
   appointmentServices,
 } from "./appointmentContent";
+import { submitAppointmentRequest } from "@/lib/api/forms";
 
 export type AppointmentFormValues = {
   fullName: string;
@@ -43,6 +44,7 @@ export default function AppointmentForm() {
   const searchParams = useSearchParams();
   const doctorSlug = searchParams.get("doctor");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const {
     register,
@@ -78,10 +80,32 @@ export default function AppointmentForm() {
   }, [doctorSlug, setValue]);
 
   const onSubmit = async (data: AppointmentFormValues) => {
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    console.log("Appointment request (UI only):", data);
-    setIsSubmitted(true);
-    reset();
+    setSubmitError("");
+
+    try {
+      await submitAppointmentRequest({
+        type: "full",
+        fullName: data.fullName,
+        phone: data.phone,
+        email: data.email,
+        hospital: data.hospital,
+        department: data.department,
+        serviceType: data.serviceType,
+        visitType: data.visitType,
+        preferredDate: data.preferredDate,
+        preferredTime: data.preferredTime,
+        message: data.message,
+      });
+
+      setIsSubmitted(true);
+      reset();
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Unable to submit your appointment request. Please try again.",
+      );
+    }
   };
 
   if (isSubmitted) {
@@ -375,6 +399,11 @@ export default function AppointmentForm() {
         >
           {isSubmitting ? "Submitting Request..." : "Book An Appointment"}
         </button>
+        {submitError ? (
+          <p className="appointment-form__error" role="alert">
+            {submitError}
+          </p>
+        ) : null}
       </form>
     </div>
   );

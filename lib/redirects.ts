@@ -88,12 +88,7 @@ export const siteRedirects: Redirect[] = [
     permanent: false,
   },
 
-  // Navigation — contact
-  {
-    source: "/contact",
-    destination: "/appointment",
-    permanent: false,
-  },
+  // Navigation — contact page is now live at /contact
 
   // Footer & utility pages
   {

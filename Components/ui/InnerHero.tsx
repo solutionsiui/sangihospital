@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { ChevronRight, ShieldCheck } from "lucide-react";
 import { siteConfig } from "@/lib/site";
 import "./innerhero.css";
@@ -14,8 +14,9 @@ type InnerHeroProps = {
   subtitle?: string;
   eyebrow?: string;
   breadcrumbs: Breadcrumb[];
-  backgroundImage?: string;
+  backgroundImage?: string | StaticImageData;
   showTrustBar?: boolean;
+  priorityImage?: boolean;
 };
 
 export default function InnerHero({
@@ -25,7 +26,10 @@ export default function InnerHero({
   breadcrumbs,
   backgroundImage,
   showTrustBar = true,
+  priorityImage = true,
 }: InnerHeroProps) {
+  const isStaticImage = typeof backgroundImage === "object";
+
   return (
     <section className="inner-hero" aria-labelledby="inner-hero-title">
       {backgroundImage && (
@@ -34,7 +38,10 @@ export default function InnerHero({
             src={backgroundImage}
             alt=""
             fill
-            priority
+            priority={priorityImage}
+            loading={priorityImage ? "eager" : "lazy"}
+            fetchPriority={priorityImage ? "high" : "auto"}
+            placeholder={isStaticImage ? "blur" : undefined}
             sizes="100vw"
             className="inner-hero__image"
             aria-hidden="true"

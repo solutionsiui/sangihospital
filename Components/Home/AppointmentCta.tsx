@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { CalendarDays, ChevronDown, Headphones, ScanEye, ShieldCheck } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { submitAppointmentRequest } from "@/lib/api/forms";
 
 type AppointmentFormValues = {
   name: string;
@@ -42,6 +44,9 @@ const departments = [
 ] as const;
 
 export default function AppointmentCta() {
+  const [submitError, setSubmitError] = useState("");
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -58,9 +63,28 @@ export default function AppointmentCta() {
   });
 
   const onSubmit = async (data: AppointmentFormValues) => {
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    console.log("Appointment request:", data);
-    reset();
+    setSubmitError("");
+    setSubmitSuccess(false);
+
+    try {
+      await submitAppointmentRequest({
+        type: "quick",
+        name: data.name,
+        phone: data.phone,
+        department: data.department,
+        date: data.date,
+        message: data.message,
+      });
+
+      setSubmitSuccess(true);
+      reset();
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Unable to submit your appointment request. Please try again.",
+      );
+    }
   };
 
   return (
@@ -199,6 +223,16 @@ export default function AppointmentCta() {
               >
                 {isSubmitting ? "Booking..." : "Book An Appointment"}
               </button>
+              {submitSuccess ? (
+                <p className="appointment-cta__success" role="status">
+                  Your appointment request has been sent. Our team will contact you shortly.
+                </p>
+              ) : null}
+              {submitError ? (
+                <p className="appointment-cta__error" role="alert">
+                  {submitError}
+                </p>
+              ) : null}
             </form>
           </div>
         </div>
