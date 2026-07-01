@@ -4,43 +4,33 @@ import {
   buildAppointmentEmail,
   type AppointmentPayload,
 } from "@/lib/email/templates/appointmentEmail";
+import { apiError, apiSuccess } from "@/lib/email/validate";
 import {
-  apiError,
-  apiSuccess,
-  isValidEmail,
-  isValidPhone,
-  sanitizeString,
-} from "@/lib/email/validate";
+  validateFullAppointment,
+  validateQuickAppointment,
+} from "@/lib/validation/appointment";
 
-function parseAppointmentBody(body: unknown): AppointmentPayload | null {
-  if (!body || typeof body !== "object") return null;
-
-  const data = body as Record<string, unknown>;
-  const type = data.type === "quick" ? "quick" : "full";
-
-  if (type === "quick") {
-    const name = sanitizeString(data.name, 120);
-    const phone = sanitizeString(data.phone, 20);
-    const department = sanitizeString(data.department, 120);
-    const date = sanitizeString(data.date, 20);
-    const message = sanitizeString(data.message, 2000);
-
+function toAppointmentPayload(
+  payload: Record<string, string | undefined>,
+): AppointmentPayload | null {
+  if (payload.type === "quick") {
+    const { name, phone, department, date, message } = payload;
     if (!name || !phone || !department || !date || !message) return null;
-    if (!isValidPhone(phone)) return null;
-
     return { type: "quick", name, phone, department, date, message };
   }
 
-  const fullName = sanitizeString(data.fullName, 120);
-  const phone = sanitizeString(data.phone, 20);
-  const email = sanitizeString(data.email, 160);
-  const hospital = sanitizeString(data.hospital, 80);
-  const department = sanitizeString(data.department, 80);
-  const serviceType = sanitizeString(data.serviceType, 80);
-  const visitType = sanitizeString(data.visitType, 80);
-  const preferredDate = sanitizeString(data.preferredDate, 20);
-  const preferredTime = sanitizeString(data.preferredTime, 40);
-  const message = sanitizeString(data.message, 2000);
+  const {
+    fullName,
+    phone,
+    email,
+    hospital,
+    department,
+    serviceType,
+    visitType,
+    preferredDate,
+    preferredTime,
+    message,
+  } = payload;
 
   if (
     !fullName ||
@@ -54,9 +44,6 @@ function parseAppointmentBody(body: unknown): AppointmentPayload | null {
   ) {
     return null;
   }
-
-  if (!isValidPhone(phone)) return null;
-  if (email && !isValidEmail(email)) return null;
 
   return {
     type: "full",
@@ -83,8 +70,22 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const payload = parseAppointmentBody(body);
+    if (!body || typeof body !== "object") {
+      return apiError("Invalid appointment request.");
+    }
 
+    const data = body as Record<string, unknown>;
+    const type = data.type === "quick" ? "quick" : "full";
+    const result =
+      type === "quick"
+        ? validateQuickAppointment(data)
+        : validateFullAppointment(data);
+
+    if (!result.ok) {
+      return apiError(result.message);
+    }
+
+    const payload = toAppointmentPayload(result.payload);
     if (!payload) {
       return apiError("Please fill in all required appointment details.");
     }

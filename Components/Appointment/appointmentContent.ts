@@ -53,7 +53,11 @@ export const appointmentPage = {
     phone: siteConfig.phone,
     email: siteConfig.email,
     hours: "Mon – Sat: 9:00 AM – 8:00 PM",
-    emergency: "24x7 Emergency Available",
+    location: {
+      address: "No-01, Near Hathras Mathura Road, Raya, Mathura, UP 281204",
+      mapsUrl:
+        "https://www.google.com/maps/dir//''/data=!4m7!4m6!1m1!4e2!1m2!1m1!1s0x39737becd3584305:0x880f2ab661c21563!3e0?g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAMYASAF",
+    },
   },
 } as const;
 

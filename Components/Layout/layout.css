@@ -39,6 +39,10 @@
   color: #ffffff;
 }
 
+.site-footer__bottom-sep {
+  color: rgba(255, 255, 255, 0.4);
+}
+
 .site-footer__social {
   display: inline-flex;
   align-items: center;

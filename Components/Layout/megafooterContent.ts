@@ -116,8 +116,8 @@ export const megaFooterColumns: MegaFooterColumn[] = [
       {
         title: "Support",
         links: [
-          { label: "Contact & Help", href: "/appointment" },
-          { label: "Emergency Helpline", href: `tel:${siteConfig.phone}` },
+          { label: "Contact & Help", href: "/contact" },
+          { label: "Emergency Helpline", href: `tel:${siteConfig.phoneTel}` },
           { label: "Email Support", href: `mailto:${siteConfig.email}` },
           { label: "All Services", href: "/services" },
         ],
@@ -137,10 +137,10 @@ export const megaFooterUtilityLinks: MegaFooterLink[] = [
 ];
 
 export const megaFooterLegalLinks: MegaFooterLink[] = [
-  { label: "Privacy Policy", href: "/about" },
-  { label: "Terms of Use", href: "/about" },
-  { label: "Cookie Policy", href: "/about" },
-  { label: "Patient Information", href: "/about" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms of Use", href: "/terms-of-use" },
+  { label: "Cookie Policy", href: "/cookie-policy" },
+  { label: "Patient Information", href: "/patient-information" },
 ];
 
 export const megaFooterSubscribe = {
@@ -150,8 +150,7 @@ export const megaFooterSubscribe = {
 };
 
 export const megaFooterSocial = [
-  { label: "Facebook", href: "https://facebook.com" },
-  { label: "X", href: "https://x.com" },
-  { label: "YouTube", href: "https://youtube.com" },
-  { label: "Instagram", href: "https://instagram.com" },
+  { label: "Facebook", href: siteConfig.social.facebook },
+  { label: "LinkedIn", href: siteConfig.social.linkedin },
+  { label: "Instagram", href: siteConfig.social.instagram },
 ] as const;

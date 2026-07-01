@@ -37,14 +37,14 @@ const sangiLetters: SangiLetter[] = [
       "Experienced doctors and modern protocols guide every treatment plan — from prevention through recovery.",
   },
   {
-    letter: "I",
+    letter: "i",
     keyword: "Integrated",
     description:
       "Multi-speciality care under one roof — cardiology, neurology, gynecology, diagnostics, and more.",
   },
 ];
 
-const WORD = "SANGI";
+const WORD = "SANGi";
 
 function getViewportHeight() {
   if (typeof window === "undefined") return 0;
@@ -275,20 +275,34 @@ export default function Sangidef() {
             <p className="sangidef__eyebrow">What SANGI Stands For</p>
 
             <div className="sangidef__word" aria-hidden="true">
-              {WORD.split("").map((char, index) => (
-                <span
-                  key={`${char}-${index}`}
-                  className={`sangidef__letter${
-                    index === activeIndex
-                      ? " is-active"
-                      : index < activeIndex
-                        ? " is-past"
-                        : ""
-                  }`}
-                >
-                  {char}
-                </span>
-              ))}
+              {WORD.split("").map((char, index) => {
+                const letterClass = `sangidef__letter${
+                  index === activeIndex
+                    ? " is-active"
+                    : index < activeIndex
+                      ? " is-past"
+                      : ""
+                }`;
+
+                if (char === "i") {
+                  return (
+                    <span
+                      key={`${char}-${index}`}
+                      className={`${letterClass} sangidef__letter--i`}
+                    >
+                      i
+                      <span className="sangidef__letter-i-cover" aria-hidden="true" />
+                      <span className="sangidef__letter-i-dot" aria-hidden="true" />
+                    </span>
+                  );
+                }
+
+                return (
+                  <span key={`${char}-${index}`} className={letterClass}>
+                    {char}
+                  </span>
+                );
+              })}
             </div>
 
             <div

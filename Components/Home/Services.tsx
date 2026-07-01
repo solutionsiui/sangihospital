@@ -84,11 +84,9 @@ export default function Services() {
                 <Image
                   src={servicesHeroImage}
                   alt="Medical professionals at Sangi Hospital"
-                  width={servicesHeroImage.width}
-                  height={servicesHeroImage.height}
+                  fill
                   sizes="(max-width: 768px) 85vw, (max-width: 992px) 55vw, 26rem"
                   className="services-image"
-                  unoptimized
                   priority
                 />
               </div>

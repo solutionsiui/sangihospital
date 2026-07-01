@@ -25,7 +25,7 @@ export const contactPage = {
     {
       label: "Phone",
       value: siteConfig.phone,
-      href: `tel:${siteConfig.phone}`,
+      href: `tel:${siteConfig.phoneTel}`,
     },
     {
       label: "Email",

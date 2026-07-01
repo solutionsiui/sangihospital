@@ -5,6 +5,15 @@ import { useForm } from "react-hook-form";
 import { CheckCircle2, ChevronDown, Mail, MapPin, Phone } from "lucide-react";
 import { contactPage } from "./contactContent";
 import { submitContactRequest } from "@/lib/api/forms";
+import { siteConfig } from "@/lib/site";
+import {
+  allowedSelectRules,
+  consentRules,
+  emailRequiredRules,
+  fullNameRules,
+  messageRules,
+  phoneRules,
+} from "@/lib/validation/forms";
 
 export type ContactFormValues = {
   fullName: string;
@@ -141,7 +150,8 @@ export default function ContactForm() {
                 placeholder="Enter your full name"
                 className="contact-form__input"
                 aria-invalid={errors.fullName ? "true" : "false"}
-                {...register("fullName", { required: "Full name is required" })}
+                maxLength={80}
+                {...register("fullName", fullNameRules)}
               />
               {errors.fullName ? (
                 <span className="contact-form__error">{errors.fullName.message}</span>
@@ -155,16 +165,11 @@ export default function ContactForm() {
               <input
                 id="phone"
                 type="tel"
-                placeholder="+91 00000 00000"
+                placeholder={siteConfig.phone}
                 className="contact-form__input"
                 aria-invalid={errors.phone ? "true" : "false"}
-                {...register("phone", {
-                  required: "Phone number is required",
-                  pattern: {
-                    value: /^[0-9+\s()-]{7,15}$/,
-                    message: "Enter a valid phone number",
-                  },
-                })}
+                maxLength={20}
+                {...register("phone", phoneRules)}
               />
               {errors.phone ? (
                 <span className="contact-form__error">{errors.phone.message}</span>
@@ -182,13 +187,8 @@ export default function ContactForm() {
               placeholder="you@email.com"
               className="contact-form__input"
               aria-invalid={errors.email ? "true" : "false"}
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Enter a valid email address",
-                },
-              })}
+              maxLength={160}
+              {...register("email", emailRequiredRules)}
             />
             {errors.email ? (
               <span className="contact-form__error">{errors.email.message}</span>
@@ -203,7 +203,13 @@ export default function ContactForm() {
               <select
                 id="subject"
                 className="contact-form__input contact-form__select"
-                {...register("subject", { required: "Select a subject" })}
+                {...register(
+                  "subject",
+                  allowedSelectRules(
+                    "a subject",
+                    contactPage.subjects.map((item) => item.value),
+                  ),
+                )}
               >
                 {contactPage.subjects.map((subject) => (
                   <option key={subject.value} value={subject.value}>
@@ -213,6 +219,9 @@ export default function ContactForm() {
               </select>
               <ChevronDown className="contact-form__field-icon" size={18} aria-hidden="true" />
             </div>
+            {errors.subject ? (
+              <span className="contact-form__error">{errors.subject.message}</span>
+            ) : null}
           </div>
 
           <div className="contact-form__field">
@@ -225,13 +234,8 @@ export default function ContactForm() {
               placeholder="Tell us how we can help you..."
               className="contact-form__input contact-form__textarea"
               aria-invalid={errors.message ? "true" : "false"}
-              {...register("message", {
-                required: "Please enter your message",
-                minLength: {
-                  value: 10,
-                  message: "Message should be at least 10 characters",
-                },
-              })}
+              maxLength={3000}
+              {...register("message", messageRules(10, 3000))}
             />
             {errors.message ? (
               <span className="contact-form__error">{errors.message.message}</span>
@@ -242,9 +246,7 @@ export default function ContactForm() {
             <input
               type="checkbox"
               className="contact-form__checkbox"
-              {...register("consent", {
-                required: "Please accept the terms to continue",
-              })}
+              {...register("consent", consentRules)}
             />
             <span>
               I agree to be contacted by Sangi Hospital regarding this inquiry.

@@ -1,13 +1,14 @@
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const phonePattern = /^[0-9+\s()-]{7,15}$/;
-
-export function isValidEmail(value: string): boolean {
-  return emailPattern.test(value);
-}
-
-export function isValidPhone(value: string): boolean {
-  return phonePattern.test(value);
-}
+export {
+  FORM_LIMITS,
+  digitsOnlyPhone,
+  isValidPersonName,
+  isValidPhone,
+  isValidEmail,
+  isValidMessage,
+  isValidFutureDate,
+  isAllowedOption,
+  isValidResumeFile,
+} from "@/lib/validation/forms";
 
 export function sanitizeString(value: unknown, maxLength = 500): string {
   if (typeof value !== "string") return "";

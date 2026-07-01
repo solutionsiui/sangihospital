@@ -13,7 +13,7 @@ export function getOrganizationJsonLd() {
     logo: `${siteUrl}/assets/images/icons/logo.png`,
     image: `${siteUrl}${siteConfig.defaultOgImage}`,
     description: siteConfig.description,
-    telephone: siteConfig.phone,
+    telephone: siteConfig.phoneTel,
     email: siteConfig.email,
     areaServed: {
       "@type": "AdministrativeArea",
@@ -30,7 +30,11 @@ export function getOrganizationJsonLd() {
         addressCountry: "IN",
       },
     })),
-    sameAs: [],
+    sameAs: [
+      siteConfig.social.facebook,
+      siteConfig.social.linkedin,
+      siteConfig.social.instagram,
+    ],
   };
 }
 

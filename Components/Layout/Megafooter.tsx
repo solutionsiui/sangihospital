@@ -19,18 +19,10 @@ function FacebookIcon() {
   );
 }
 
-function XIcon() {
+function LinkedInIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M17.3 4H20.5L14.1 11.2L21.7 20H15.9L11.2 14.5L6.1 20H2.9L9.7 12.2L2.4 4H8.3L12.6 8.9L17.3 4ZM16.3 18.2H17.9L7.9 5.7H6.1L16.3 18.2Z" />
-    </svg>
-  );
-}
-
-function YouTubeIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.06 5 12 5 12 5s-6.06 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2 26.3 26.3 0 0 0 2 12a26.3 26.3 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.76 1.77C5.94 19 12 19 12 19s6.06 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77A26.3 26.3 0 0 0 22 12a26.3 26.3 0 0 0-.4-4.8ZM10 15.5V8.5l5.2 3.5L10 15.5Z" />
+      <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8.5h4.56V23.5H.22V8.5zM8.5 8.5h4.37v2.05h.06c.61-1.15 2.1-2.37 4.32-2.37 4.62 0 5.47 3.04 5.47 6.99v7.33h-4.56v-6.5c0-1.55-.03-3.54-2.16-3.54-2.16 0-2.49 1.69-2.49 3.43v6.61H8.5V8.5z" />
     </svg>
   );
 }
@@ -45,8 +37,7 @@ function InstagramIcon() {
 
 const socialIconMap = {
   Facebook: FacebookIcon,
-  X: XIcon,
-  YouTube: YouTubeIcon,
+  LinkedIn: LinkedInIcon,
   Instagram: InstagramIcon,
 } as const;
 

@@ -7,8 +7,14 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.sangihospital.com",
   locale: "en_IN",
   region: "Uttar Pradesh, India",
-  phone: "+91-00000-00000",
+  phone: "+91 931 121 2090",
+  phoneTel: "+919311212090",
   email: "info@sangihospital.com",
+  social: {
+    facebook: "https://www.facebook.com/sangihospital",
+    linkedin: "https://www.linkedin.com/in/sangihospital/",
+    instagram: "https://www.instagram.com/sangihospital",
+  },
   defaultOgImage: "/assets/images/home/hero_bg_1.jpeg",
   keywords: [
     "Sangi Hospital",

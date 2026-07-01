@@ -17,6 +17,18 @@ import {
   appointmentServices,
 } from "./appointmentContent";
 import { submitAppointmentRequest } from "@/lib/api/forms";
+import { siteConfig } from "@/lib/site";
+import {
+  allowedSelectRules,
+  consentRules,
+  emailOptionalRules,
+  fullNameRules,
+  futureDateRules,
+  getMaxAppointmentDate,
+  getMinAppointmentDate,
+  messageRules,
+  phoneRules,
+} from "@/lib/validation/forms";
 
 export type AppointmentFormValues = {
   fullName: string;
@@ -78,6 +90,14 @@ export default function AppointmentForm() {
       );
     }
   }, [doctorSlug, setValue]);
+
+  const hospitalOptions = appointmentHospitals.map((item) => item.value);
+  const departmentOptions = appointmentDepartments.map((item) => item.value);
+  const serviceOptions = appointmentServices.map((item) => item.value);
+  const visitTypeOptions = appointmentPage.visitTypes.map((item) => item.value);
+  const timeSlotOptions = appointmentPage.timeSlots.map((item) => item.value);
+  const minDate = getMinAppointmentDate();
+  const maxDate = getMaxAppointmentDate();
 
   const onSubmit = async (data: AppointmentFormValues) => {
     setSubmitError("");
@@ -166,7 +186,8 @@ export default function AppointmentForm() {
                 placeholder="Enter your full name"
                 className="appointment-form__input"
                 aria-invalid={errors.fullName ? "true" : "false"}
-                {...register("fullName", { required: "Full name is required" })}
+                maxLength={80}
+                {...register("fullName", fullNameRules)}
               />
               {errors.fullName ? (
                 <span className="appointment-form__error">{errors.fullName.message}</span>
@@ -180,16 +201,11 @@ export default function AppointmentForm() {
               <input
                 id="phone"
                 type="tel"
-                placeholder="+91 00000 00000"
+                placeholder={siteConfig.phone}
                 className="appointment-form__input"
                 aria-invalid={errors.phone ? "true" : "false"}
-                {...register("phone", {
-                  required: "Phone number is required",
-                  pattern: {
-                    value: /^[0-9+\s()-]{7,15}$/,
-                    message: "Enter a valid phone number",
-                  },
-                })}
+                maxLength={20}
+                {...register("phone", phoneRules)}
               />
               {errors.phone ? (
                 <span className="appointment-form__error">{errors.phone.message}</span>
@@ -207,12 +223,8 @@ export default function AppointmentForm() {
               placeholder="you@email.com"
               className="appointment-form__input"
               aria-invalid={errors.email ? "true" : "false"}
-              {...register("email", {
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Enter a valid email address",
-                },
-              })}
+              maxLength={160}
+              {...register("email", emailOptionalRules)}
             />
             {errors.email ? (
               <span className="appointment-form__error">{errors.email.message}</span>
@@ -236,7 +248,7 @@ export default function AppointmentForm() {
                   id="hospital"
                   className="appointment-form__input appointment-form__select"
                   aria-invalid={errors.hospital ? "true" : "false"}
-                  {...register("hospital", { required: "Select a hospital" })}
+                  {...register("hospital", allowedSelectRules("a hospital", hospitalOptions))}
                 >
                   {appointmentHospitals.map((hospital) => (
                     <option key={hospital.value} value={hospital.value}>
@@ -260,7 +272,10 @@ export default function AppointmentForm() {
                   id="department"
                   className="appointment-form__input appointment-form__select"
                   aria-invalid={errors.department ? "true" : "false"}
-                  {...register("department", { required: "Select a department" })}
+                  {...register(
+                    "department",
+                    allowedSelectRules("a department", departmentOptions),
+                  )}
                 >
                   {appointmentDepartments.map((department) => (
                     <option key={department.value} value={department.value}>
@@ -285,7 +300,10 @@ export default function AppointmentForm() {
                 <select
                   id="serviceType"
                   className="appointment-form__input appointment-form__select"
-                  {...register("serviceType", { required: "Select a service type" })}
+                  {...register(
+                    "serviceType",
+                    allowedSelectRules("a service type", serviceOptions),
+                  )}
                 >
                   {appointmentServices.map((service) => (
                     <option key={service.value} value={service.value}>
@@ -295,6 +313,9 @@ export default function AppointmentForm() {
                 </select>
                 <ChevronDown className="appointment-form__field-icon" size={18} aria-hidden="true" />
               </div>
+              {errors.serviceType ? (
+                <span className="appointment-form__error">{errors.serviceType.message}</span>
+              ) : null}
             </div>
 
             <div className="appointment-form__field">
@@ -305,7 +326,7 @@ export default function AppointmentForm() {
                 <select
                   id="visitType"
                   className="appointment-form__input appointment-form__select"
-                  {...register("visitType", { required: "Select visit type" })}
+                  {...register("visitType", allowedSelectRules("a visit type", visitTypeOptions))}
                 >
                   {appointmentPage.visitTypes.map((type) => (
                     <option key={type.value} value={type.value}>
@@ -329,7 +350,9 @@ export default function AppointmentForm() {
                   type="date"
                   className="appointment-form__input appointment-form__date"
                   aria-invalid={errors.preferredDate ? "true" : "false"}
-                  {...register("preferredDate", { required: "Select a preferred date" })}
+                  min={minDate}
+                  max={maxDate}
+                  {...register("preferredDate", futureDateRules)}
                 />
                 <CalendarDays className="appointment-form__field-icon" size={18} aria-hidden="true" />
               </div>
@@ -346,7 +369,10 @@ export default function AppointmentForm() {
                 <select
                   id="preferredTime"
                   className="appointment-form__input appointment-form__select"
-                  {...register("preferredTime", { required: "Select a time slot" })}
+                  {...register(
+                    "preferredTime",
+                    allowedSelectRules("a time slot", timeSlotOptions),
+                  )}
                 >
                   {appointmentPage.timeSlots.map((slot) => (
                     <option key={slot.value} value={slot.value}>
@@ -356,6 +382,9 @@ export default function AppointmentForm() {
                 </select>
                 <Clock className="appointment-form__field-icon" size={18} aria-hidden="true" />
               </div>
+              {errors.preferredTime ? (
+                <span className="appointment-form__error">{errors.preferredTime.message}</span>
+              ) : null}
             </div>
           </div>
         </div>
@@ -370,17 +399,19 @@ export default function AppointmentForm() {
               rows={4}
               placeholder="Share symptoms, reports, or any special requirements..."
               className="appointment-form__input appointment-form__textarea"
-              {...register("message")}
+              maxLength={2000}
+              {...register("message", messageRules(1, 2000, false))}
             />
+            {errors.message ? (
+              <span className="appointment-form__error">{errors.message.message}</span>
+            ) : null}
           </div>
 
           <label className="appointment-form__consent">
             <input
               type="checkbox"
               className="appointment-form__checkbox"
-              {...register("consent", {
-                required: "Please accept the terms to continue",
-              })}
+              {...register("consent", consentRules)}
             />
             <span>
               I agree to be contacted by Sangi Hospital regarding this appointment request and

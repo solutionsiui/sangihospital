@@ -143,9 +143,9 @@ export default function AllHospitals() {
                 services with a growing network of hospitals across Uttar Pradesh.
               </p>
 
-              <Link href="/hospitals" className="all-hospitals__cta">
+              <Link href="/appointment" className="all-hospitals__cta">
                 <span className="all-hospitals__cta-label">
-                  Find Hospital Near You
+                  Book Appointment Online
                 </span>
                 <span className="all-hospitals__cta-icon" aria-hidden="true">
                   <svg width="10" height="16" viewBox="0 0 10 16" fill="none">

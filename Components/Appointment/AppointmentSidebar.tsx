@@ -1,4 +1,5 @@
 import { Clock, Mail, MapPin, Phone, ShieldCheck, Siren } from "lucide-react";
+import { siteConfig } from "@/lib/site";
 import { appointmentPage } from "./appointmentContent";
 
 export default function AppointmentSidebar() {
@@ -15,7 +16,7 @@ export default function AppointmentSidebar() {
 
         <ul className="appointment-sidebar__contact-list">
           <li>
-            <a href={`tel:${contact.phone}`} className="appointment-sidebar__contact-item">
+            <a href={`tel:${siteConfig.phoneTel}`} className="appointment-sidebar__contact-item">
               <Phone size={18} aria-hidden="true" />
               <span>{contact.phone}</span>
             </a>
@@ -30,9 +31,16 @@ export default function AppointmentSidebar() {
             <Clock size={18} aria-hidden="true" />
             <span>{contact.hours}</span>
           </li>
-          <li className="appointment-sidebar__contact-item appointment-sidebar__contact-item--static">
-            <MapPin size={18} aria-hidden="true" />
-            <span>{contact.emergency}</span>
+          <li>
+            <a
+              href={contact.location.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="appointment-sidebar__contact-item appointment-sidebar__contact-item--location"
+            >
+              <MapPin size={18} aria-hidden="true" />
+              <span>{contact.location.address}</span>
+            </a>
           </li>
         </ul>
 

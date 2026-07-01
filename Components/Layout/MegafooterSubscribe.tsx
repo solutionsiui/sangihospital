@@ -3,14 +3,28 @@
 import { FormEvent, useState } from "react";
 import { Mail } from "lucide-react";
 import { megaFooterSubscribe } from "./megafooterContent";
+import { isValidEmail } from "@/lib/validation/forms";
 
 export default function MegafooterSubscribe() {
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!email.trim()) return;
+    const trimmed = email.trim();
+
+    if (!trimmed) {
+      setError("Email is required");
+      return;
+    }
+
+    if (!isValidEmail(trimmed)) {
+      setError("Enter a valid email address");
+      return;
+    }
+
+    setError("");
     setIsSubmitted(true);
     setEmail("");
   };
@@ -33,14 +47,23 @@ export default function MegafooterSubscribe() {
             id="megafooter-email"
             type="email"
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={(event) => {
+              setEmail(event.target.value);
+              if (error) setError("");
+            }}
             placeholder="Your email address"
             className="megafooter__subscribe-input"
-            required
+            maxLength={160}
+            aria-invalid={error ? "true" : "false"}
           />
           <button type="submit" className="megafooter__subscribe-button" aria-label="Subscribe">
             <Mail size={18} aria-hidden="true" />
           </button>
+          {error ? (
+            <p className="megafooter__subscribe-error" role="alert">
+              {error}
+            </p>
+          ) : null}
         </form>
       )}
     </div>

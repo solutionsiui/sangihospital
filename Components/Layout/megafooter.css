@@ -164,6 +164,13 @@
   color: rgba(255, 255, 255, 0.72);
 }
 
+.megafooter__subscribe-error {
+  margin: 0.5rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: #ffb4b4;
+}
+
 /* Utility bar */
 .megafooter__utility {
   display: flex;

@@ -231,12 +231,17 @@ a.contact-sidebar__value:hover {
 }
 
 .contact-form__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   justify-self: start;
   border: none;
   border-radius: 999px;
   padding: 0.95rem 1.8rem;
+  font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: 600;
+  color: #ffffff;
   cursor: pointer;
 }
 

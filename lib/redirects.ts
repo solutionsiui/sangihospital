@@ -89,6 +89,7 @@ export const siteRedirects: Redirect[] = [
   },
 
   // Navigation — contact page is now live at /contact
+  // Legal pages (/privacy-policy, /terms-of-use, /cookie-policy, /patient-information) are live — do not redirect them.
 
   // Footer & utility pages
   {
@@ -104,11 +105,6 @@ export const siteRedirects: Redirect[] = [
   {
     source: "/help-center",
     destination: "/appointment",
-    permanent: false,
-  },
-  {
-    source: "/privacy-policy",
-    destination: "/about",
     permanent: false,
   },
   {
@@ -185,6 +181,21 @@ export const siteRedirects: Redirect[] = [
   {
     source: "/services/heart-checkup",
     destination: "/services/echocardiography",
+    permanent: true,
+  },
+  {
+    source: "/services/male/female general-ward",
+    destination: "/services/general-ward",
+    permanent: true,
+  },
+  {
+    source: "/services/male-general-ward",
+    destination: "/services/general-ward",
+    permanent: true,
+  },
+  {
+    source: "/services/female-general-ward",
+    destination: "/services/general-ward",
     permanent: true,
   },
 

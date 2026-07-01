@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { siteConfig } from "@/lib/site";
 
 function FacebookIcon() {
   return (
@@ -9,10 +10,10 @@ function FacebookIcon() {
   );
 }
 
-function TwitterIcon() {
+function LinkedInIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-4 w-4">
-      <path d="M17.3 4H20.5L14.1 11.2L21.7 20H15.9L11.2 14.5L6.1 20H2.9L9.7 12.2L2.4 4H8.3L12.6 8.9L17.3 4ZM16.3 18.2H17.9L7.9 5.7H6.1L16.3 18.2Z" />
+      <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8.5h4.56V23.5H.22V8.5zM8.5 8.5h4.37v2.05h.06c.61-1.15 2.1-2.37 4.32-2.37 4.62 0 5.47 3.04 5.47 6.99v7.33h-4.56v-6.5c0-1.55-.03-3.54-2.16-3.54-2.16 0-2.49 1.69-2.49 3.43v6.61H8.5V8.5z" />
     </svg>
   );
 }
@@ -21,14 +22,6 @@ function InstagramIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-4 w-4">
       <path d="M7 3H17C19.2 3 21 4.8 21 7V17C21 19.2 19.2 21 17 21H7C4.8 21 3 19.2 3 17V7C3 4.8 4.8 3 7 3ZM12 8.2A3.8 3.8 0 1 0 12 15.8A3.8 3.8 0 1 0 12 8.2ZM17.5 6.7A1 1 0 1 0 17.5 8.7A1 1 0 1 0 17.5 6.7Z" />
-    </svg>
-  );
-}
-
-function PinterestIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-4 w-4">
-      <path d="M12 3C7.03 3 3 7.03 3 12C3 15.66 5.03 18.78 8 20.16C7.95 19.53 7.9 18.45 8.08 17.64C8.25 16.93 9.28 12.86 9.28 12.86C9.28 12.86 9 12.18 9 11.18C9 9.58 9.97 8.35 11.17 8.35C12.18 8.35 12.68 9.08 12.68 9.96C12.68 10.95 12.02 12.43 11.66 13.78C11.36 14.92 12.18 15.85 13.29 15.85C15.28 15.85 16.78 13.68 16.78 10.93C16.78 8.55 15.09 6.93 12.58 6.93C9.66 6.93 7.86 9.08 7.86 11.56C7.86 12.48 8.21 13.08 8.67 13.52C8.77 13.61 8.79 13.71 8.76 13.81C8.67 14.18 8.52 14.82 8.48 15.01C8.43 15.24 8.29 15.29 8.05 15.19C6.79 14.62 6 13.01 6 11.47C6 8.04 8.47 5.28 12.78 5.28C16.28 5.28 18.97 7.55 18.97 10.84C18.97 14.29 16.71 17.05 13.48 17.05C12.31 17.05 11.22 16.47 10.82 15.76C10.82 15.76 10.24 18.03 10.1 18.59C9.86 19.58 9.21 20.78 8.74 21.54C9.79 21.84 10.88 22 12 22C16.97 22 21 17.97 21 12C21 7.03 16.97 3 12 3Z" />
     </svg>
   );
 }
@@ -51,10 +44,9 @@ const footerResources = [
 ];
 
 const socialLinks = [
-  { label: "Facebook", href: "#", icon: FacebookIcon },
-  { label: "Twitter", href: "#", icon: TwitterIcon },
-  { label: "Instagram", href: "#", icon: InstagramIcon },
-  { label: "Pinterest", href: "#", icon: PinterestIcon },
+  { label: "Facebook", href: siteConfig.social.facebook, icon: FacebookIcon },
+  { label: "LinkedIn", href: siteConfig.social.linkedin, icon: LinkedInIcon },
+  { label: "Instagram", href: siteConfig.social.instagram, icon: InstagramIcon },
 ];
 
 
@@ -82,14 +74,16 @@ export default function Footer() {
 
             <div className="d-flex align-items-center gap-2">
               {socialLinks.map(({ label, href, icon: Icon }) => (
-                <Link
+                <a
                   key={label}
                   href={href}
                   aria-label={label}
                   className="site-footer__social"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <Icon />
-                </Link>
+                </a>
               ))}
             </div>
           </div>
@@ -127,8 +121,8 @@ export default function Footer() {
               <br />
               New York. USA
             </p>
-            <a href="tel:+12126215896" className="site-footer__phone font-heading">
-              +1 (212) 621-5896
+            <a href={`tel:${siteConfig.phoneTel}`} className="site-footer__phone font-heading">
+              {siteConfig.phone}
             </a>
           </div>
         </div>
@@ -141,7 +135,14 @@ export default function Footer() {
           </div>
           <div className="col-md-6 text-md-end">
             <Link href="/privacy-policy" className="site-footer__bottom-link font-body">
-              Privacy &amp; Cookie Policy
+              Privacy Policy
+            </Link>
+            <span className="site-footer__bottom-sep" aria-hidden="true">
+              {" "}
+              ·{" "}
+            </span>
+            <Link href="/cookie-policy" className="site-footer__bottom-link font-body">
+              Cookie Policy
             </Link>
           </div>
         </div>

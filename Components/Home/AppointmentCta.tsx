@@ -4,6 +4,17 @@ import { useState } from "react";
 import { CalendarDays, ChevronDown, Headphones, ScanEye, ShieldCheck } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { submitAppointmentRequest } from "@/lib/api/forms";
+import { siteConfig } from "@/lib/site";
+import { quickAppointmentDepartments } from "@/lib/validation/appointment";
+import {
+  allowedSelectRules,
+  futureDateRules,
+  getMaxAppointmentDate,
+  getMinAppointmentDate,
+  messageRules,
+  personNameRules,
+  phoneRules,
+} from "@/lib/validation/forms";
 
 type AppointmentFormValues = {
   name: string;
@@ -34,14 +45,7 @@ const features = [
   },
 ] as const;
 
-const departments = [
-  "Dental",
-  "Cardiology",
-  "Neurology",
-  "Gynecology",
-  "Emergency",
-  "Psychiatry",
-] as const;
+const departments = [...quickAppointmentDepartments];
 
 export default function AppointmentCta() {
   const [submitError, setSubmitError] = useState("");
@@ -61,6 +65,9 @@ export default function AppointmentCta() {
       message: "",
     },
   });
+
+  const minDate = getMinAppointmentDate();
+  const maxDate = getMaxAppointmentDate();
 
   const onSubmit = async (data: AppointmentFormValues) => {
     setSubmitError("");
@@ -131,7 +138,8 @@ export default function AppointmentCta() {
                     placeholder="Your Name"
                     className="appointment-cta__input"
                     aria-invalid={errors.name ? "true" : "false"}
-                    {...register("name", { required: "Name is required" })}
+                    maxLength={80}
+                    {...register("name", personNameRules)}
                   />
                   {errors.name ? (
                     <span className="appointment-cta__error">{errors.name.message}</span>
@@ -141,16 +149,11 @@ export default function AppointmentCta() {
                 <div className="appointment-cta__field">
                   <input
                     type="tel"
-                    placeholder="Phone Number"
+                    placeholder={siteConfig.phone}
                     className="appointment-cta__input"
                     aria-invalid={errors.phone ? "true" : "false"}
-                    {...register("phone", {
-                      required: "Phone number is required",
-                      pattern: {
-                        value: /^[0-9+\s()-]{7,15}$/,
-                        message: "Enter a valid phone number",
-                      },
-                    })}
+                    maxLength={20}
+                    {...register("phone", phoneRules)}
                   />
                   {errors.phone ? (
                     <span className="appointment-cta__error">{errors.phone.message}</span>
@@ -164,7 +167,10 @@ export default function AppointmentCta() {
                     <select
                       className="appointment-cta__input appointment-cta__select"
                       aria-invalid={errors.department ? "true" : "false"}
-                      {...register("department", { required: "Select a department" })}
+                      {...register(
+                        "department",
+                        allowedSelectRules("a department", departments),
+                      )}
                     >
                       {departments.map((department) => (
                         <option key={department} value={department}>
@@ -189,7 +195,9 @@ export default function AppointmentCta() {
                       type="date"
                       className="appointment-cta__input appointment-cta__date"
                       aria-invalid={errors.date ? "true" : "false"}
-                      {...register("date", { required: "Select a date" })}
+                      min={minDate}
+                      max={maxDate}
+                      {...register("date", futureDateRules)}
                     />
                     <CalendarDays
                       className="appointment-cta__field-icon"
@@ -209,7 +217,8 @@ export default function AppointmentCta() {
                   placeholder="Write Message"
                   className="appointment-cta__input appointment-cta__textarea"
                   aria-invalid={errors.message ? "true" : "false"}
-                  {...register("message", { required: "Message is required" })}
+                  maxLength={500}
+                  {...register("message", messageRules(10, 500))}
                 />
                 {errors.message ? (
                   <span className="appointment-cta__error">{errors.message.message}</span>

@@ -110,7 +110,7 @@ export default function FeaturedService() {
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
             <a
-              href={`tel:${siteConfig.phone}`}
+              href={`tel:${siteConfig.phoneTel}`}
               className="services-featured__cta services-featured__cta--secondary"
             >
               {meta.secondaryCta}

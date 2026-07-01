@@ -41,8 +41,7 @@ export const serviceIconMap: Record<string, LucideIcon> = {
   "deluxe-room": BedDouble,
   "private-room": BedDouble,
   "semi-private-room": Building2,
-  "male-general-ward": Building2,
-  "female-general-ward": Building2,
+  "general-ward": Building2,
 };
 
 export function getServiceIcon(id: string): LucideIcon {

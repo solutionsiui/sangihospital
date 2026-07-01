@@ -1,13 +1,8 @@
 import { isEmailConfigured } from "@/lib/email/config";
 import { sendMail } from "@/lib/email/mailer";
 import { buildContactEmail } from "@/lib/email/templates/contactEmail";
-import {
-  apiError,
-  apiSuccess,
-  isValidEmail,
-  isValidPhone,
-  sanitizeString,
-} from "@/lib/email/validate";
+import { apiError, apiSuccess } from "@/lib/email/validate";
+import { validateContactSubmission } from "@/lib/validation/contact";
 
 export async function POST(request: Request) {
   try {
@@ -19,24 +14,16 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const fullName = sanitizeString(body?.fullName, 120);
-    const email = sanitizeString(body?.email, 160);
-    const phone = sanitizeString(body?.phone, 20);
-    const subject = sanitizeString(body?.subject, 160);
-    const message = sanitizeString(body?.message, 3000);
-
-    if (!fullName || !email || !phone || !subject || !message) {
-      return apiError("Please fill in all required contact details.");
+    if (!body || typeof body !== "object") {
+      return apiError("Invalid contact request.");
     }
 
-    if (!isValidEmail(email)) {
-      return apiError("Please enter a valid email address.");
+    const result = validateContactSubmission(body as Record<string, unknown>);
+    if (!result.ok) {
+      return apiError(result.message);
     }
 
-    if (!isValidPhone(phone)) {
-      return apiError("Please enter a valid phone number.");
-    }
-
+    const { fullName, email, phone, subject, message } = result.payload;
     const mail = buildContactEmail({
       fullName,
       email,

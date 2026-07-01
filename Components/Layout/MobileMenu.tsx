@@ -521,7 +521,7 @@ export default function MobileMenu() {
         </div>
 
         <div className="mobile-menu__footer">
-          <a href={`tel:${siteConfig.phone}`} className="mobile-menu__phone">
+          <a href={`tel:${siteConfig.phoneTel}`} className="mobile-menu__phone">
             <Phone size={18} aria-hidden="true" />
             {siteConfig.phone}
           </a>

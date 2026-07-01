@@ -7,7 +7,7 @@ export const aboutHero = {
     "Our mission is to consistently evolve by expanding departments, introducing specialized services, and adopting the latest medical technologies. With the guidance of experienced doctors and dedicated staff, we ensure 24/7 healthcare that prioritizes your comfort, safety, and recovery.",
     "As we shape the future of healthcare in Raya and beyond, we remain committed to keeping your care local, affordable, and world-class.",
   ],
-  image: "/assets/images/about/about-hospital.jpg",
+  image: "/assets/images/about/journey/2025hospital.jpeg",
   closingNote: "We pray for your continued good health and well-being.",
 };
 

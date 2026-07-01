@@ -488,6 +488,14 @@
   cursor: default;
 }
 
+.appointment-sidebar__contact-item--location {
+  align-items: flex-start;
+}
+
+.appointment-sidebar__contact-item--location span {
+  line-height: 1.5;
+}
+
 .appointment-sidebar__emergency {
   display: flex;
   gap: 0.65rem;

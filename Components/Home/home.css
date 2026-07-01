@@ -313,8 +313,10 @@
   --services-card-bg: rgba(10, 21, 69, 0.78);
   --services-card-border: rgba(255, 255, 255, 0.1);
   --services-gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --services-image-ratio: 447 / 558;
   position: relative;
   overflow: hidden;
+  overflow-x: clip;
   padding: 3.5rem 0 4rem;
   background: linear-gradient(
     145deg,
@@ -330,12 +332,15 @@
 .services-section__inner {
   width: min(100% - 2.5rem, 1320px);
   margin-inline: auto;
+  max-width: 100%;
 }
 
 .services-section__grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 2.5rem;
+  width: 100%;
+  min-width: 0;
 }
 
 @media (min-width: 992px) {
@@ -358,14 +363,17 @@
 
 .services-section__cards-col {
   min-width: 0;
+  max-width: 100%;
 }
 
 .services-section__visual-col {
   display: flex;
   min-width: 0;
+  max-width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 @media (min-width: 992px) {
@@ -408,6 +416,7 @@
   max-width: 100%;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
 }
 
 @media (min-width: 992px) {
@@ -534,19 +543,21 @@
 }
 
 .services-image-wrap {
+  position: relative;
   width: min(100%, 17.5rem);
   margin-inline: auto;
   flex-shrink: 0;
-  line-height: 0;
+  aspect-ratio: var(--services-image-ratio);
   overflow: hidden;
+  contain: layout paint;
 }
 
 .services-image {
-  display: block;
-  width: 100%;
-  height: auto;
-  transform: scale(1.5);
-  transform-origin: top center;
+  object-fit: cover;
+  object-position: center top;
+  transform: scale(1.2);
+  transform-origin: center top;
+  will-change: auto;
 }
 
 @media (min-width: 576px) {

@@ -16,6 +16,18 @@ import {
   careersPage,
   type CareerJob,
 } from "./careersContent";
+import { siteConfig } from "@/lib/site";
+import {
+  allowedSelectRules,
+  consentRules,
+  coverLetterOptionalRules,
+  emailRequiredRules,
+  employerOptionalRules,
+  fullNameRules,
+  phoneRules,
+  qualificationRules,
+  resumeRules,
+} from "@/lib/validation/forms";
 
 export type CareerApplicationFormValues = {
   fullName: string;
@@ -56,6 +68,10 @@ export default function CareerApplicationForm({ job }: CareerApplicationFormProp
       consent: false,
     },
   });
+
+  const resumeField = register("resume", resumeRules);
+  const hospitalOptions = careerHospitals.map((item) => item.value);
+  const experienceOptions = careerExperienceLevels.map((item) => item.value);
 
   const onSubmit = async (data: CareerApplicationFormValues) => {
     await new Promise((resolve) => setTimeout(resolve, 800));
@@ -121,7 +137,8 @@ export default function CareerApplicationForm({ job }: CareerApplicationFormProp
                 placeholder="Enter your full name"
                 className="career-form__input"
                 aria-invalid={errors.fullName ? "true" : "false"}
-                {...register("fullName", { required: "Full name is required" })}
+                maxLength={80}
+                {...register("fullName", fullNameRules)}
               />
               {errors.fullName ? (
                 <span className="career-form__error">{errors.fullName.message}</span>
@@ -135,16 +152,11 @@ export default function CareerApplicationForm({ job }: CareerApplicationFormProp
               <input
                 id="phone"
                 type="tel"
-                placeholder="+91 00000 00000"
+                placeholder={siteConfig.phone}
                 className="career-form__input"
                 aria-invalid={errors.phone ? "true" : "false"}
-                {...register("phone", {
-                  required: "Phone number is required",
-                  pattern: {
-                    value: /^[0-9+\s()-]{7,15}$/,
-                    message: "Enter a valid phone number",
-                  },
-                })}
+                maxLength={20}
+                {...register("phone", phoneRules)}
               />
               {errors.phone ? (
                 <span className="career-form__error">{errors.phone.message}</span>
@@ -162,13 +174,8 @@ export default function CareerApplicationForm({ job }: CareerApplicationFormProp
               placeholder="you@email.com"
               className="career-form__input"
               aria-invalid={errors.email ? "true" : "false"}
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Enter a valid email address",
-                },
-              })}
+              maxLength={160}
+              {...register("email", emailRequiredRules)}
             />
             {errors.email ? (
               <span className="career-form__error">{errors.email.message}</span>
@@ -192,7 +199,7 @@ export default function CareerApplicationForm({ job }: CareerApplicationFormProp
                   id="hospital"
                   className="career-form__input career-form__select"
                   aria-invalid={errors.hospital ? "true" : "false"}
-                  {...register("hospital", { required: "Select a location" })}
+                  {...register("hospital", allowedSelectRules("a location", hospitalOptions))}
                 >
                   {careerHospitals.map((hospital) => (
                     <option key={hospital.value} value={hospital.value}>
@@ -215,7 +222,10 @@ export default function CareerApplicationForm({ job }: CareerApplicationFormProp
                 <select
                   id="experience"
                   className="career-form__input career-form__select"
-                  {...register("experience", { required: "Select experience level" })}
+                  {...register(
+                    "experience",
+                    allowedSelectRules("experience level", experienceOptions),
+                  )}
                 >
                   {careerExperienceLevels.map((level) => (
                     <option key={level.value} value={level.value}>
@@ -225,6 +235,9 @@ export default function CareerApplicationForm({ job }: CareerApplicationFormProp
                 </select>
                 <ChevronDown className="career-form__field-icon" size={18} aria-hidden="true" />
               </div>
+              {errors.experience ? (
+                <span className="career-form__error">{errors.experience.message}</span>
+              ) : null}
             </div>
           </div>
 
@@ -239,7 +252,8 @@ export default function CareerApplicationForm({ job }: CareerApplicationFormProp
                 placeholder="e.g. MBBS, B.Sc Nursing, BBA"
                 className="career-form__input"
                 aria-invalid={errors.qualification ? "true" : "false"}
-                {...register("qualification", { required: "Qualification is required" })}
+                maxLength={120}
+                {...register("qualification", qualificationRules)}
               />
               {errors.qualification ? (
                 <span className="career-form__error">{errors.qualification.message}</span>
@@ -255,7 +269,8 @@ export default function CareerApplicationForm({ job }: CareerApplicationFormProp
                 type="text"
                 placeholder="Current hospital / organization"
                 className="career-form__input"
-                {...register("currentEmployer")}
+                maxLength={120}
+                {...register("currentEmployer", employerOptionalRules)}
               />
             </div>
           </div>
@@ -275,16 +290,17 @@ export default function CareerApplicationForm({ job }: CareerApplicationFormProp
               <input
                 id="resume"
                 type="file"
-                accept=".pdf,.doc,.docx"
+                accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 className="career-form__file-input"
                 aria-invalid={errors.resume ? "true" : "false"}
-                {...register("resume", {
-                  required: "Resume is required",
-                  onChange: (event) => {
-                    const file = event.target.files?.[0];
-                    setResumeName(file?.name ?? "");
-                  },
-                })}
+                name={resumeField.name}
+                ref={resumeField.ref}
+                onBlur={resumeField.onBlur}
+                onChange={(event) => {
+                  void resumeField.onChange(event);
+                  const file = event.target.files?.[0];
+                  setResumeName(file?.name ?? "");
+                }}
               />
               <label htmlFor="resume" className="career-form__file-label">
                 <FileUp size={20} aria-hidden="true" />
@@ -305,7 +321,8 @@ export default function CareerApplicationForm({ job }: CareerApplicationFormProp
               rows={4}
               placeholder="Tell us why you want to join Sangi Hospital..."
               className="career-form__input career-form__textarea"
-              {...register("coverLetter")}
+              maxLength={2000}
+              {...register("coverLetter", coverLetterOptionalRules)}
             />
           </div>
         </div>
@@ -316,9 +333,7 @@ export default function CareerApplicationForm({ job }: CareerApplicationFormProp
               type="checkbox"
               className="career-form__checkbox"
               aria-invalid={errors.consent ? "true" : "false"}
-              {...register("consent", {
-                required: "You must agree before submitting",
-              })}
+              {...register("consent", consentRules)}
             />
             <span>
               I confirm that the information provided is accurate and I agree to be contacted by
