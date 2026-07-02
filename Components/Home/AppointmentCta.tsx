@@ -26,21 +26,21 @@ type AppointmentFormValues = {
 
 const features = [
   {
-    title: "100% Safe and Trusted",
+    title: "Safe & Trusted Care",
     description:
-      "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.",
+      "Licensed hospital protocols, infection-control standards, and qualified clinical teams you can rely on at every visit.",
     icon: ShieldCheck,
   },
   {
-    title: "Specialist eye Surgery",
+    title: "Experienced Specialist Doctors",
     description:
-      "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.",
+      "Consult senior consultants across departments — from general medicine and surgery to cardiology, orthopaedics, and maternity.",
     icon: ScanEye,
   },
   {
-    title: "24/7 Take care Staff",
+    title: "24x7 Patient Support",
     description:
-      "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.",
+      "Our reception, nursing, and emergency teams are available round the clock to help with bookings, admissions, and urgent care.",
     icon: Headphones,
   },
 ] as const;

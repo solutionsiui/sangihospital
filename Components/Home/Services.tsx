@@ -38,12 +38,7 @@ export default function Services() {
       <div className="services-section__inner">
         <div className="services-section__grid">
           <div className="services-section__cards-col">
-            <p className="services-intro">
-              Sangi Hospital offers an integrated range of medical services — from
-              24x7 emergency and critical care to diagnostics, therapy, pharmacy,
-              and inpatient wards across our network.
-            </p>
-
+           
             <div className="services-section__list">
               {services.map((service) => {
                 const Icon = service.icon;

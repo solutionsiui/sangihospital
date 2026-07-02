@@ -20,13 +20,13 @@ export const patientCornerMegaMenu = {
         "Read expert health articles, wellness tips, and medical guides written by our doctors.",
       href: "/blog",
     },
-    {
-      id: "podcasts",
-      label: "Podcasts",
-      description:
-        "Listen to conversations with specialists on prevention, treatment, and healthy living.",
-      href: "/patient-corner/podcasts",
-    },
+    // {
+    //   id: "podcasts",
+    //   label: "Podcasts",
+    //   description:
+    //     "Listen to conversations with specialists on prevention, treatment, and healthy living.",
+    //   href: "/patient-corner/podcasts",
+    // },
     {
       id: "patient-stories",
       label: "Patient Stories",

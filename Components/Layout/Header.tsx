@@ -7,6 +7,7 @@ import PatientCornerMegaMenu from "@/Components/Layout/PatientCornerMegaMenu";
 import HeaderNav from "@/Components/Layout/HeaderNav";
 import HeaderMegaNavItem from "@/Components/Layout/HeaderMegaNavItem";
 import MobileMenu from "@/Components/Layout/MobileMenu";
+import HeaderSearch, { HeaderSearchFallback } from "@/Components/Layout/HeaderSearch";
 import ClientOnly from "@/Components/ui/ClientOnly";
 import { mainNavItems } from "@/lib/navigation";
 
@@ -24,25 +25,6 @@ function ChevronDownIcon() {
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function SearchIcon() {
-  return (
-    <svg
-      className="h-5 w-5"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
-      <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" />
-      <path
-        d="M20 20L16.5 16.5"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
       />
     </svg>
   );
@@ -158,13 +140,9 @@ export default function Header() {
         </HeaderNav>
 
         <div className="flex shrink-0 items-center gap-3 sm:gap-5">
-          <button
-            type="button"
-            aria-label="Search"
-            className="text-white transition-opacity hover:opacity-80"
-          >
-            <SearchIcon />
-          </button>
+          <ClientOnly fallback={<HeaderSearchFallback />}>
+            <HeaderSearch />
+          </ClientOnly>
 
           <Link
             href="/appointment"

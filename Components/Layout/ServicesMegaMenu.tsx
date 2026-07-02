@@ -24,7 +24,10 @@ export default function ServicesMegaMenu() {
 
   return (
     <div className="header-mega header-mega--services">
-      <div className="header-services-mega__panel">
+      <div
+        className="header-services-mega__panel"
+        onMouseLeave={() => setHoveredServiceId(getDefaultServiceId())}
+      >
         <div className="header-services-mega__brand">
           <div className="header-services-mega__brand-image-wrap">
             <Image
@@ -54,10 +57,7 @@ export default function ServicesMegaMenu() {
           </Link>
         </div>
 
-        <div
-          className="header-services-mega__columns"
-          onMouseLeave={() => setHoveredServiceId(getDefaultServiceId())}
-        >
+        <div className="header-services-mega__columns">
           {columns.map((column) => (
             <div key={column.id} className="header-services-mega__column">
               <h3 className="header-services-mega__column-title">{column.title}</h3>
@@ -101,6 +101,9 @@ function ServicePreview({
 }) {
   if (services.length === 0) return null;
 
+  const activeService =
+    services.find((service) => service.id === activeServiceId) ?? services[0];
+
   return (
     <div className="header-services-mega__preview-card">
       <div className="header-services-mega__preview-image-wrap">
@@ -110,7 +113,6 @@ function ServicePreview({
             className={`header-services-mega__preview-slide${
               service.id === activeServiceId ? " is-active" : ""
             }`}
-            style={{ position: "absolute", inset: 0 }}
           >
             <Image
               src={service.image}
@@ -124,21 +126,12 @@ function ServicePreview({
       </div>
 
       <div className="header-services-mega__preview-body">
-        {services.map((service) => (
-          <div
-            key={service.id}
-            className={`header-services-mega__preview-info${
-              service.id === activeServiceId ? " is-active" : ""
-            }`}
-          >
-            <p className="header-services-mega__preview-label">{service.label}</p>
-            <p className="header-services-mega__preview-text">{service.description}</p>
-            <Link href={service.href} className="header-services-mega__preview-link">
-              Learn More
-              <ArrowRight size={14} aria-hidden="true" />
-            </Link>
-          </div>
-        ))}
+        <p className="header-services-mega__preview-label">{activeService.label}</p>
+        <p className="header-services-mega__preview-text">{activeService.description}</p>
+        <Link href={activeService.href} className="header-services-mega__preview-link">
+          Learn More
+          <ArrowRight size={14} aria-hidden="true" />
+        </Link>
       </div>
     </div>
   );
